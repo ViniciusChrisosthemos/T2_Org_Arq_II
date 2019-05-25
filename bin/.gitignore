@@ -8,3 +8,5 @@
 /FileGenerator$Jump.class
 /Cache.class
 /Cache$CacheLine.class
+/MemoryHierarchy.class
+/LevelMemory.class
