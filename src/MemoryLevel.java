@@ -1,11 +1,11 @@
-public class LevelMemory {
+public class MemoryLevel {
 	private String id;
 	private int hit;
 	private int miss;
 	private int missPenalty;
 	private int prob;
 	
-	public LevelMemory(String id, int missPenalty, int prob)
+	public MemoryLevel(String id, int missPenalty, int prob)
 	{
 		this.id = id;
 		this.hit = 0;
@@ -35,6 +35,6 @@ public class LevelMemory {
 	@Override
 	public String toString()
 	{
-		return "["+id+","+hit+","+miss+","+missPenalty+","+prob+"]";
+		return id+ " = [hit="+hit+", miss="+miss+", missPenalty="+missPenalty+", prob="+prob+"]";
 	}
 }

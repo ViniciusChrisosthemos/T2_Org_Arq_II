@@ -2,7 +2,7 @@
 public class Cache {
 
 	private int cacheSize;
-	private int blockAmont;
+	private int blockAmount;
 	private int wordSize;
 	private int ways;
 	private int lines;
@@ -10,20 +10,20 @@ public class Cache {
 	
 	CacheLine[] associativeSet;
 	
-	public Cache(int cacheSize, int blockAmont, int wordSize, int ways)
+	public Cache(int cacheSize, int blockAmount, int wordSize, int ways)
 	{
 		this.cacheSize = cacheSize;
-		this.blockAmont = blockAmont;
+		this.blockAmount = blockAmount;
 		this.wordSize = wordSize;
 		this.ways = ways;
 		
-		lines = cacheSize/(blockAmont*wordSize);
+		lines = cacheSize/(blockAmount*wordSize);
 		setSize = lines/ways;
 		
 		associativeSet = new CacheLine[lines];
 		for(int i=0; i<lines; i++)
 		{
-			associativeSet[i] = new CacheLine(blockAmont);
+			associativeSet[i] = new CacheLine(blockAmount);
 		}
 		
 		System.out.println(toString());
@@ -34,10 +34,10 @@ public class Cache {
 		public final int bitValidity;
 		public final int[] block;
 		
-		public CacheLine(int blockAmout)
+		public CacheLine(int blockAmount)
 		{
 			bitValidity = 0;
-			block = new int[blockAmout];
+			block = new int[blockAmount];
 		}
 	}
 	
@@ -45,7 +45,7 @@ public class Cache {
 	public String toString()
 	{
 		return "Cache size = "+cacheSize+" Bytes,\n"+
-			   "Block amount = "+blockAmont+" \n"+
+			   "Block amount = "+blockAmount+" \n"+
 			   "Word size = "+wordSize+" Bytes\n"+
 			   "Ways = "+ways+"\n"+
 			   "Lines = "+lines+"\n"+

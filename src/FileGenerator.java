@@ -12,18 +12,12 @@ public class FileGenerator {
 	Map<Integer,Jump> jumps = new HashMap<>();
 	int maxEnd;
 	int endProg;
-	
-	public static void main(String[] args) {
-		FileGenerator util = new FileGenerator();
-		util.formatProgram("prog1.txt");
-		util.CreateAddressFile();
-	}
 
-	public void CreateAddressFile()
+	public void CreateAddressFile(String fileName)
 	{
 		try
 		{
-			File file = new File("enderecos.txt");
+			File file = new File(fileName);
 			BufferedWriter writer = new BufferedWriter(new FileWriter(file.getName()));
 			Random rand = new Random();
 			Jump jump;

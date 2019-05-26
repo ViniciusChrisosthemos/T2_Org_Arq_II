@@ -7,12 +7,12 @@ import java.util.Random;
 
 public class MemoryHierarchy {
 	Random rand;
-	List<LevelMemory> levelMemorys;
+	List<MemoryLevel> memoryLevels;
 	
 	public MemoryHierarchy(String fileName)
 	{
 		rand = new Random();
-		levelMemorys = new LinkedList<>();
+		memoryLevels = new LinkedList<>();
 		
 		LoadMemoryLevels(fileName);
 	}
@@ -26,7 +26,7 @@ public class MemoryHierarchy {
 			{
 				tokens = reader.readLine().split(":");
 				
-				levelMemorys.add(new LevelMemory(tokens[0], Integer.parseInt(tokens[1]), Integer.parseInt(tokens[2])));
+				memoryLevels.add(new MemoryLevel(tokens[0], Integer.parseInt(tokens[1]), Integer.parseInt(tokens[2])));
 			}
 			
 		}catch(IOException e)
@@ -39,7 +39,7 @@ public class MemoryHierarchy {
 	{
 		int timeCost = 0;
 		int randProb;
-		for(LevelMemory lvlMem : levelMemorys)
+		for(MemoryLevel lvlMem : memoryLevels)
 		{
 			randProb = rand.nextInt(100);
 			timeCost += lvlMem.getMissPenalty();
@@ -53,14 +53,15 @@ public class MemoryHierarchy {
 		return timeCost;
 	}
 	
-	public static void main(String[] args) {
-		MemoryHierarchy mem = new MemoryHierarchy("mem.txt");
-		
-		for(LevelMemory lvl : mem.levelMemorys)
+	@Override
+	public String toString()
+	{
+		StringBuilder string = new StringBuilder("Niveis de memoria:\n");
+		for(MemoryLevel memLvl : memoryLevels)
 		{
-			System.out.println(lvl);
+			string.append("   ").append(memLvl).append("\n");
 		}
 		
-		System.out.println(mem.searchAddress());
+		return string.toString();
 	}
 }
