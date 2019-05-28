@@ -14,10 +14,10 @@ public class MemoryHierarchy {
 		rand = new Random();
 		memoryLevels = new LinkedList<>();
 		
-		LoadMemoryLevels(fileName);
+		loadMemoryLevels(fileName);
 	}
 	
-	public void LoadMemoryLevels(String fileName)
+	public void loadMemoryLevels(String fileName)
 	{
 		String[] tokens;
 		try(BufferedReader reader = new BufferedReader(new FileReader(fileName))){
@@ -44,7 +44,7 @@ public class MemoryHierarchy {
 			randProb = rand.nextInt(100);
 			timeCost += lvlMem.getMissPenalty();
 			
-			if(lvlMem.haveAddress(randProb))
+			if(lvlMem.hasAddress(randProb))
 			{
 				break;
 			}

@@ -11,7 +11,7 @@ public class Simulator {
 	private int simulationTime;
 	private int cacheHits;
 	private int cacheMiss;
-	private boolean configured;
+	private boolean setup;
 	
 	public Simulator()
 	{
@@ -20,12 +20,12 @@ public class Simulator {
 		simulationTime = 0;
 		cacheHits = 0;
 		cacheMiss = 0;
-		configured = false;
+		setup = false;
 	}
 	
-	public void StartSimulation()
+	public void startSimulation()
 	{
-		if(configured) {
+		if(setup) {
 			
 			for(Integer address : addresses)
 			{
@@ -38,16 +38,16 @@ public class Simulator {
 		}
 	}
 	
-	public void ConfigSimulation(String addrFile, String cacheConfig, String memConfig)
+	public void configSimulation(String addrFile, String cacheConfig, String memConfig)
 	{
-		LoadAddress(addrFile);
-		SetCacheConfig(cacheConfig);
-		SetMemoryHierarchy(memConfig);
+		loadAddress(addrFile);
+		setCacheConfig(cacheConfig);
+		setMemoryHierarchy(memConfig);
 		
 		System.out.println("Simulacao configurada com sucesso!");
 	}
 	
-	public void LoadAddress(String fileName)
+	public void loadAddress(String fileName)
 	{
 		addresses = new LinkedList<>();
 		try(BufferedReader reader = new BufferedReader(new FileReader(fileName)))
@@ -63,7 +63,7 @@ public class Simulator {
 		}
 	}
 	
-	public void SetCacheConfig(String fileConfigName)
+	public void setCacheConfig(String fileConfigName)
 	{
 		int cacheSize = 0;
 		int blockAmount = 0;
@@ -102,14 +102,14 @@ public class Simulator {
 		}
 	}
 	
-	public void SetMemoryHierarchy(String fileConfigName)
+	public void setMemoryHierarchy(String fileConfigName)
 	{
 		memHierarchy = new MemoryHierarchy(fileConfigName);
 		System.out.println("Hierarquia de memoria configurada com sucesso!\n");
 		System.out.println(memHierarchy);
 	}
 	
-	public void GetSimulationResult()
+	public void setSimulationResult()
 	{
 		//TODO
 	}

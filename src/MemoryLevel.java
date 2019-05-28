@@ -14,7 +14,7 @@ public class MemoryLevel {
 		this.prob = prob;
 	}
 	
-	public boolean haveAddress(int randProb)
+	public boolean hasAddress(int randProb)
 	{
 		if(prob < randProb)
 		{

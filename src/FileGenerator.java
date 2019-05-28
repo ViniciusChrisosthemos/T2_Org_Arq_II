@@ -9,15 +9,25 @@ import java.util.Map;
 import java.util.Random;
 
 public class FileGenerator {
-	Map<Integer,Jump> jumps = new HashMap<>();
-	int maxEnd;
-	int endProg;
+	private Map<Integer,Jump> jumps;
+	private int maxEnd;
+	private int endProg;
+	private static FileGenerator instance;
 
-	public void CreateAddressFile(String fileName)
-	{
+	private FileGenerator(){
+		jumps = new HashMap<>();
+	}
+
+	public static FileGenerator getInstance(){
+		return (instance != null) ? instance : (instance = new FileGenerator());
+	}
+
+	public void createAddressFile(String programFile, String addressFile)
+	{		
+		formatProgram(programFile);
 		try
 		{
-			File file = new File(fileName);
+			File file = new File(addressFile);
 			BufferedWriter writer = new BufferedWriter(new FileWriter(file.getName()));
 			Random rand = new Random();
 			Jump jump;
@@ -32,15 +42,17 @@ public class FileGenerator {
 				{
 					if(jump.conditional)
 					{
-						if(jump.prob < rand.nextInt(100)) address = jump.destiny;
+						if(jump.prob < rand.nextInt(100)) address = jump.destiny;	
 					}
 					else
 					{
 						address = jump.destiny;
-					}
+					}	
+				}else
+				{
+					address++;
 				}
 
-				address++;
 				addressAmout++;
 			}
 			
@@ -51,14 +63,15 @@ public class FileGenerator {
 		}
 	}
 	
-	public void formatProgram(String fileName)
-	{
-		try(BufferedReader reader = new BufferedReader(new FileReader(new File(fileName))))
+	private void formatProgram(String addressFile)
+	{		
+		try(BufferedReader reader = new BufferedReader(new FileReader(new File(addressFile))))
 		{
 			String[] tokens;
 			maxEnd = 0;
 			endProg = 0;
-			int number;
+			int number;			
+			jumps = new HashMap<>();
 			
 			while(reader.ready())
 			{
@@ -84,7 +97,7 @@ public class FileGenerator {
 			}
 			
 			System.out.println("Max = " + maxEnd + " EP = " + endProg);
-			System.out.println(jumps);
+			System.out.println("Jumps = "+ jumps);
 			
 		}catch(IOException e)
 		{

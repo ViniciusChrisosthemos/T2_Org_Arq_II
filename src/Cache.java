@@ -1,12 +1,12 @@
 
 public class Cache {
 
-	private int cacheSize;
-	private int blockAmount;
-	private int wordSize;
-	private int ways;
-	private int lines;
-	private int setSize;
+	private final int cacheSize;
+	private final int blockAmount;
+	private final int wordSize;
+	private final int ways;
+	private final int lines;
+	private final int setSize;
 	
 	CacheLine[] associativeSet;
 	
@@ -53,8 +53,7 @@ public class Cache {
 	}
 	
 	public static void main(String[] args) {
-		Cache c = new Cache(65536, 32, 8, 4);
-		System.out.println();
+		new Cache(65536, 32, 8, 4);
 	}
 }
 

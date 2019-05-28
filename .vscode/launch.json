@@ -1,0 +1,18 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - Cache",
+            "request": "launch",
+            "mainClass": "Cache",
+            "projectName": "T2_Org_Arq_II"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - Main",
+            "request": "launch",
+            "mainClass": "Main",
+            "projectName": "T2_Org_Arq_II"
+        }
+    ]
+}
