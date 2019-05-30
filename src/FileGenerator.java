@@ -28,6 +28,9 @@ public class FileGenerator {
 		try
 		{
 			File file = new File(addressFile);
+			
+			if(!file.exists()) file.createNewFile();
+			
 			BufferedWriter writer = new BufferedWriter(new FileWriter(file.getName()));
 			Random rand = new Random();
 			Jump jump;
@@ -42,7 +45,7 @@ public class FileGenerator {
 				{
 					if(jump.conditional)
 					{
-						if(jump.prob < rand.nextInt(100)) address = jump.destiny;	
+						if(rand.nextInt(100) <= jump.prob) address = jump.destiny;	
 					}
 					else
 					{

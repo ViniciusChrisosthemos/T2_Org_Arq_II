@@ -6,7 +6,7 @@ public class Main {
 		fileGenerator.createAddressFile("Programa_2.txt", "enderecos_2.txt");
 
 		Simulator simulator = new Simulator();		
-		simulator.configSimulation("enderecos.txt", "Cache_config.txt", "Hierarquia_de_memoria.txt");
+		simulator.configSimulation("enderecos_1.txt", "Cache_config.txt", "Hierarquia_de_memoria.txt");
 		
 	}
 }
