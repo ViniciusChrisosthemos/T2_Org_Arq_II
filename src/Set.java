@@ -1,11 +1,20 @@
+import java.util.LinkedList;
+import java.util.List;
 
 public class Set {
 	
 	private Line[] lines;
+	private List<Line> teste;
 	
 	public Set(int sizeSet)
 	{
 		lines = new Line[sizeSet];
+		teste = new LinkedList<>();
+	}
+	
+	public List<Line> getList()
+	{
+		return teste;
 	}
 	
 	public void resetSet()
@@ -15,34 +24,4 @@ public class Set {
 			lines[line].reset();
 		}
 	}
-	
-	private class Line
-	{
-		public int tag;
-		public int[] blocks;
-		public int accesses;
-		
-		public Line(int blocksAmount)
-		{
-			tag = 0;
-			blocks = new int[blocksAmount];
-			accesses = 0;
-		}
-		
-		public void setLine(int tag, int[] blocks)
-		{
-			this.tag = tag;
-			this.blocks = blocks;
-			accesses = 0;
-		}
-		
-		public void reset()
-		{
-			tag = 0;
-			blocks = new int[blocks.length];
-			accesses = 0;
-		}
-	}
-	
-	
 }
