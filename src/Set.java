@@ -1,27 +1,22 @@
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Set {
 	
-	private Line[] lines;
-	private List<Line> teste;
+	private List<Line> lines;
 	
-	public Set(int sizeSet)
+	public Set(int ways)
 	{
-		lines = new Line[sizeSet];
-		teste = new LinkedList<>();
+		lines = new ArrayList<>(ways);
 	}
 	
-	public List<Line> getList()
+	public List<Line> getLines()
 	{
-		return teste;
+		return lines;
 	}
 	
 	public void resetSet()
 	{
-		for(int line=0; line<lines.length; line++)
-		{
-			lines[line].reset();
-		}
+		lines.forEach(line -> line.reset());
 	}
 }

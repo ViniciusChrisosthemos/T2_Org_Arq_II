@@ -7,7 +7,7 @@ interface AlgorithmStrategy {
 	
 	static AlgorithmStrategy leastFrequentUsedAlgortithm()
 	{
-		return set -> set.getList()
+		return set -> set.getLines()
 				.stream()
 				.min(Comparator.comparing(Line::getAccesses))
 				.get()
@@ -16,6 +16,6 @@ interface AlgorithmStrategy {
 	
 	static AlgorithmStrategy randomAlgorithm()
 	{
-		return set -> (new Random()).nextInt(set.getList().size());
+		return set -> (new Random()).nextInt(set.getLines().size());
 	}
 }

@@ -6,9 +6,7 @@ public class Cache {
 	private final int wordSize;
 	private final int ways;
 	private final int lines;
-	private final int setSize;
-	
-	CacheLine[] associativeSet;
+	private Set[] associativeSets;
 	
 	public Cache(int cacheSize, int blockAmount, int wordSize, int ways)
 	{
@@ -18,27 +16,15 @@ public class Cache {
 		this.ways = ways;
 		
 		lines = cacheSize/(blockAmount*wordSize);
-		setSize = lines/ways;
 		
-		associativeSet = new CacheLine[lines];
+		associativeSets = new Set[lines/ways];
+		
 		for(int i=0; i<lines; i++)
 		{
-			associativeSet[i] = new CacheLine(blockAmount);
+			associativeSets[i] = new Set(ways);
 		}
 		
 		System.out.println(toString());
-	}
-	
-	private class CacheLine
-	{
-		public final int bitValidity;
-		public final int[] block;
-		
-		public CacheLine(int blockAmount)
-		{
-			bitValidity = 0;
-			block = new int[blockAmount];
-		}
 	}
 	
 	@Override
@@ -49,7 +35,7 @@ public class Cache {
 			   "Word size = "+wordSize+" Bytes\n"+
 			   "Ways = "+ways+"\n"+
 			   "Lines = "+lines+"\n"+
-			   "Set size = "+setSize;
+			   "Set size = "+associativeSets.length;
 	}
 	
 	public static void main(String[] args) {
