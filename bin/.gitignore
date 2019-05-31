@@ -1,6 +1,11 @@
-/Set.class
-/Set$Line.class
-/AlgorithmStrategy.class
+/Cache.class
+/FileGenerator$Jump.class
+/FileGenerator.class
 /Line.class
+/Main.class
+/MemoryHierarchy.class
+/MemoryLevel.class
 /PoliticStrategy.class
+/Set.class
+/Simulator.class
 /Util.class

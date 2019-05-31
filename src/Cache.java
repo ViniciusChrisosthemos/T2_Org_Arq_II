@@ -8,8 +8,8 @@ public class Cache {
 	//Informações da estrutura da Cache
 	private int cacheSize;
 	private int blockAmount;
-	private int wordSize;
 	private int ways;
+	private int lines;
 	private int associativeSetSize;
 	private List<Set> associativeSets;
 	private PoliticStrategy politicStrategy;
@@ -24,8 +24,8 @@ public class Cache {
 	{
 		this.cacheSize = cacheSize;
 		this.blockAmount = blockAmount;
-	
-		int lines = cacheSize/(blockAmount*wordSize);
+		this.ways = ways;
+		lines = cacheSize/(blockAmount*wordSize);
 		associativeSetSize = lines/ways;
 		
 		associativeSets = new ArrayList<>();
@@ -77,12 +77,12 @@ public class Cache {
 	
 	public int getTotalLines()
 	{
-		return associativeSets.size() * associativeSets.get(0).getWays();
+		return lines;
 	}
 	
 	public int getWays()
 	{
-		return associativeSets.get(0).getWays();
+		return ways;
 	}
 	
 	@Override
