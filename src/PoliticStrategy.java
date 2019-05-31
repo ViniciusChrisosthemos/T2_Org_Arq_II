@@ -2,10 +2,10 @@ import java.util.Comparator;
 import java.util.Random;
 
 @FunctionalInterface
-interface AlgorithmStrategy {
+interface PoliticStrategy {
 	int getIndex(Set set);
 	
-	static AlgorithmStrategy leastFrequentUsedAlgortithm()
+	static PoliticStrategy leastFrequentUsedAlgortithm()
 	{
 		return set -> set.getLines()
 				.stream()
@@ -14,7 +14,7 @@ interface AlgorithmStrategy {
 				.getAccesses();
 	}
 	
-	static AlgorithmStrategy randomAlgorithm()
+	static PoliticStrategy randomAlgorithm()
 	{
 		return set -> (new Random()).nextInt(set.getLines().size());
 	}
