@@ -23,20 +23,18 @@ public class Line
 		
 	public void setLine(int tag, int value)
 	{
-		/*
-		this.tag = tag;
-		int offset = blocksAmount - value%blocksAmount; 
-		int limit = value - offset + blocksAmount;
-		int cont = 0;
 		
-		for(int n=value-offset; n<limit; n++)
+		this.tag = tag;
+		int cont = value - value%blocksAmount;
+		
+		for(int n=0; n<blocksAmount; n++)
 		{
-			blocks.set(cont, n);
+			blocks.set(n, cont);
 			cont++;
 		}
 		
 		accesses = 0;
-		*/
+		
 	}
 		
 	public void reset()
