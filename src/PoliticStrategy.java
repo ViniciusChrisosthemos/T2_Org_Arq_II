@@ -1,9 +1,11 @@
+import java.util.List;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.Random;
 
 @FunctionalInterface
 interface PoliticStrategy {
-	int getIndex(Set set);
+	String getIndex(Set set);
 	
 	static PoliticStrategy leastFrequentUsedAlgortithm()
 	{
@@ -11,11 +13,15 @@ interface PoliticStrategy {
 				.stream()
 				.min(Comparator.comparing(Line::getAccesses))
 				.get()
-				.getAccesses();
+				.getTag();
 	}
 	
 	static PoliticStrategy randomAlgorithm()
 	{
-		return set -> (new Random()).nextInt(set.getLines().size());
+		return set -> {
+			List<String> tags = set.getTags();
+			Collections.shuffle(tags);
+			return tags.get(0);
+		};
 	}
 }

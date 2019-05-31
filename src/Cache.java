@@ -6,8 +6,11 @@ public class Cache {
 	private static final int WORDSIZE = 32;
 	
 	//Informações da estrutura da Cache
-	private final int cacheSize;
-	private final int blockAmount;
+	private int cacheSize;
+	private int blockAmount;
+	private int wordSize;
+	private int ways;
+	private int associativeSetSize;
 	private List<Set> associativeSets;
 	private PoliticStrategy politicStrategy;
 	
@@ -23,12 +26,13 @@ public class Cache {
 		this.blockAmount = blockAmount;
 	
 		int lines = cacheSize/(blockAmount*wordSize);
+		associativeSetSize = lines/ways;
 		
-		associativeSets = new ArrayList<>(lines/ways);
+		associativeSets = new ArrayList<>();
 		
 		for(int i=0; i<lines; i++)
 		{
-			associativeSets.add(new Set(ways));
+			associativeSets.add(new Set(ways, blockAmount));
 		}
 		
 		politicStrategy = PoliticStrategy.randomAlgorithm();
@@ -52,9 +56,7 @@ public class Cache {
 		System.out.println("Set = " + Util.formatBinaryString(setString, setAddrSize));
 		System.out.println("Block = " + Util.formatBinaryString(blockString, blockAddrSize));
 		
-		associativeSets.get(0).getLines().get(0).setLine(0, 27);
-		System.out.println(associativeSets.get(0).getLines().get(0));
-		
+	
 		return true;
 	}
 	
@@ -70,7 +72,7 @@ public class Cache {
 	
 	public int getBlockAmount()
 	{
-		return associativeSets.get(0).getBlockAmount();
+		return blockAmount;
 	}
 	
 	public int getTotalLines()

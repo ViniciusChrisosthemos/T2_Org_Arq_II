@@ -1,38 +1,32 @@
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Set {
 	
-	private List<Line> lines;
+	private Map<String, Line> lines;
 	private int ways;
 	
-	public Set(int ways)
+	public Set(int ways, int blockAmount)
 	{
 		this.ways = ways;
-		resetSet();
+		lines = new HashMap<>(blockAmount);
 	}
 	
-	public List<Line> getLines()
+	public Collection<Line> getLines()
 	{
-		return lines;
+		return lines.values();
 	}
 	
-	public void resetSet()
+	public List<String> getTags()
 	{
-		lines = new ArrayList<>(ways);
-		for(int line=0; line<ways; line++)
-		{
-			lines.add(new Line(ways));
-		}
+		return new ArrayList<String>(lines.keySet());
 	}
 	
 	public int getWays()
 	{
 		return ways;
-	}
-	
-	public int getBlockAmount()
-	{
-		return lines.get(0).getBlocksAmount();
 	}
 }

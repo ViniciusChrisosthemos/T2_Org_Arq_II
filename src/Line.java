@@ -3,28 +3,28 @@ import java.util.List;
 
 public class Line
 {
-	private int tag;
+	private String tag;
 	private List<Integer> blocks;
 	private int accesses;
 	private int blocksAmount;
+	private int validationBit;
 		
-	public Line(int blocksAmount)
+	public Line(String tag, int blocksAmount)
 	{
-		tag = 0;
-		accesses = 0;
-		this.blocksAmount = blocksAmount;
-		reset();
-	}
-	
-	public int getAccesses()
-	{
-		return accesses;
-	}
-		
-	public void setLine(int tag, int value)
-	{
-		
 		this.tag = tag;
+		accesses = 0;
+		validationBit = 0;
+		this.blocksAmount = blocksAmount;
+		
+		blocks = new ArrayList<>(blocksAmount);
+		for(int block=0; block<blocksAmount; block++)
+		{
+			blocks.add(0);
+		}
+	}
+		
+	public void setLine(int value)
+	{
 		int cont = value - value%blocksAmount;
 		
 		for(int n=0; n<blocksAmount; n++)
@@ -34,24 +34,16 @@ public class Line
 		}
 		
 		accesses = 0;
-		
-	}
-		
-	public void reset()
-	{
-		tag = 0;
-		blocks = new ArrayList<>(blocksAmount);
-		for(int block=0; block<blocksAmount; block++)
-		{
-			blocks.add(0);
-		}	
-			
-		accesses = 0;
 	}
 	
-	public int getBlocksAmount()
+	public int getAccesses()
 	{
-		return blocksAmount;
+		return accesses;
+	}
+	
+	public String getTag()
+	{
+		return tag;
 	}
 	
 	@Override
