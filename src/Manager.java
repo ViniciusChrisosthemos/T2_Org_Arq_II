@@ -1,0 +1,39 @@
+import java.util.ArrayList;
+import java.util.List;
+
+public class Manager {
+	private Simulator simulator;
+	
+	public Manager()
+	{
+		simulator = new Simulator();
+	}
+	
+	public void setCacheConfig(int cacheSize, int blockAmount, int wordSize, int ways)
+	{
+		simulator.setCacheConfig(cacheSize, blockAmount, wordSize, ways);
+	}
+
+	public CacheDAO getCacheDAO() {
+		return new CacheDAO(simulator.getCache());
+	}
+
+	public void addMemoryLevel(String id, int cost, int prob) {
+		simulator.addMemoryLevel(id, cost, prob);
+	}
+
+	public List<MemoryLevelDAO> getMemoryLevelsDAO() {
+		List<MemoryLevelDAO> list = new ArrayList<>(); 
+		for(MemoryLevel mem : simulator.getMemoryLevels())
+		{
+			list.add(new MemoryLevelDAO(mem));
+		}
+		
+		return list;
+	}
+
+	public void setProgram(String progName) {
+		FileGenerator.getInstance().createAddressFile(progName, "enderecos_"+progName);
+		simulator.loadAddress("enderecos_"+progName);
+	}
+}

@@ -32,6 +32,22 @@ public class MemoryLevel {
 		return missPenalty;
 	}
 	
+	public String getId() {
+		return id;
+	}
+
+	public int getHits() {
+		return hit;
+	}
+
+	public int getMiss() {
+		return miss;
+	}
+
+	public int getProb() {
+		return prob;
+	}
+
 	@Override
 	public String toString()
 	{

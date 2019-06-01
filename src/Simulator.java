@@ -13,8 +13,8 @@ public class Simulator {
 	
 	public Simulator()
 	{
-		cache = null;
-		memHierarchy = null;
+		cache = new Cache();
+		memHierarchy = new MemoryHierarchy();
 		totalCost = 0;
 		setup = false;
 	}
@@ -43,6 +43,11 @@ public class Simulator {
 		{
 			System.out.println("A simulacao deve ser configurada antes de ser iniciada.");
 		}
+	}
+	
+	public void setCacheConfig(int cacheSize, int blockAmount, int wordSize, int ways)
+	{
+		cache = new Cache(cacheSize, blockAmount, wordSize, ways);
 	}
 	
 	/**
@@ -150,5 +155,18 @@ public class Simulator {
 		System.out.println(memHierarchy);
 		System.out.println("Tempo medio de acesso: "+ String.format("%.2f", totalCost/((float)addresses.size()))+ " ut");
 		System.out.println("Tempo total: "+String.format("%.2f", totalCost)+" ut");
+	}
+
+	public Cache getCache() {
+		return cache;
+	}
+
+	public void addMemoryLevel(String id, int cost, int prob) {
+		memHierarchy.addMemoryLevel(id, cost, prob);
+	}
+	
+	public List<MemoryLevel> getMemoryLevels()
+	{
+		return memHierarchy.getMemorys();
 	}
 }

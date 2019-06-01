@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class Cache {
@@ -23,6 +24,23 @@ public class Cache {
 	//Estatísticas
 	private int hits;
 	private int miss;
+	
+	public Cache()
+	{
+		cacheSize = 0;
+		blockAmount = 0;
+		wordSize = 0;
+		ways = 0;
+		lines = 0;
+		associativeSetSize = 0;
+		associativeSets = new LinkedList<Set>();
+		politicStrategy = PoliticStrategy.randomAlgorithm();
+		setAddrSize = 0;
+		blockAddrSize = 0;
+		tagAddrSize = 0;
+		hits = 0;
+		miss = 0;
+	}
 	
 	/**
 	 * Construtor da classe Cache
@@ -205,6 +223,38 @@ public class Cache {
 			System.out.println(c.findAddress(i));
 			c.printSets();
 		}
+	}
+
+	public int getCacheSize() {
+		return cacheSize;
+	}
+
+	public int getWordSize() {
+		return wordSize;
+	}
+
+	public int getLines() {
+		return lines;
+	}
+
+	public int getAssociativeSetSize() {
+		return associativeSetSize;
+	}
+
+	public int getSetAddrSize() {
+		return setAddrSize;
+	}
+
+	public int getBlockAddrSize() {
+		return blockAddrSize;
+	}
+
+	public int getTagAddrSize() {
+		return tagAddrSize;
+	}
+
+	public int getAddressSize() {
+		return ADDRESSSIZE;
 	}
 }
 

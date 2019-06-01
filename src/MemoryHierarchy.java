@@ -9,11 +9,15 @@ public class MemoryHierarchy {
 	Random rand;
 	List<MemoryLevel> memoryLevels;
 	
-	public MemoryHierarchy(String fileName)
+	public MemoryHierarchy()
 	{
 		rand = new Random();
 		memoryLevels = new LinkedList<>();
-		
+	}
+	
+	public MemoryHierarchy(String fileName)
+	{
+		super();
 		loadMemoryLevels(fileName);
 	}
 	
@@ -63,5 +67,14 @@ public class MemoryHierarchy {
 		}
 		
 		return string.toString();
+	}
+
+	public void addMemoryLevel(String id, int cost, int prob) {
+		memoryLevels.add(new MemoryLevel(id, cost, prob));
+	}
+	
+	public List<MemoryLevel> getMemorys()
+	{
+		return memoryLevels;
 	}
 }
