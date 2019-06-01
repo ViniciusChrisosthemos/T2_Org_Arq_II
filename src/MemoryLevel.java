@@ -35,6 +35,16 @@ public class MemoryLevel {
 	@Override
 	public String toString()
 	{
+		if(miss != 0 | hit != 0)
+		{
+			float querys = hit + miss;
+			float hitRate = (hit/querys) * 100.0f;
+			float missRate = (miss/querys) * 100.0f;
+			return id+ " = [hit="+hit+", hit-rate="+String.format("%.2f", hitRate)+
+					"%, miss="+miss+", miss-rate="+String.format("%.2f", missRate)+
+					"%, missPenalty="+missPenalty+", prob="+prob+"]";
+		}
+		
 		return id+ " = [hit="+hit+", miss="+miss+", missPenalty="+missPenalty+", prob="+prob+"]";
 	}
 }
