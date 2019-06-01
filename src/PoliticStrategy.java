@@ -15,6 +15,14 @@ interface PoliticStrategy {
 				.get());
 	}
 	
+	static PoliticStrategy leastRecentUsedAlgortithm()
+	{
+		return set -> set.getLines().indexOf(set.getLines()
+				.stream()
+				.max(Comparator.comparing(Line::getAccesses))
+				.get());
+	}
+	
 	static PoliticStrategy randomAlgorithm()
 	{
 		return set -> (new Random()).nextInt(set.getWays());
