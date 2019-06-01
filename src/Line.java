@@ -71,6 +71,11 @@ public class Line
 		return validationBit;
 	}
 	
+	public void addAccesses()
+	{
+		accesses++;
+	}
+	
 	@Override
 	public String toString()
 	{

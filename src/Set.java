@@ -25,6 +25,7 @@ public class Set {
 		Line line = lines.get(index);
 		line.setLine(value);
 		line.setValidationBit(true);
+		line.addAccesses();
 		lines.set(index, line);
 	}
 	
@@ -33,6 +34,7 @@ public class Set {
 		Line line = lines.get(index);
 		line.setLine(value);
 		line.setTag(tag);
+		line.addAccesses();
 		lines.set(index, line);
 	}
 	
@@ -45,7 +47,11 @@ public class Set {
 			{
 				if(line.getTag().equals(tag))
 				{
-					if(line.hasData(address)) return;
+					if(line.hasData(address))
+					{
+						line.addAccesses();
+						return;
+					}
 					else throw new DataNotFound();
 				}
 			}else
