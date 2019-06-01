@@ -19,14 +19,25 @@ public class Simulator {
 		setup = false;
 	}
 	
+	/**
+	 * Começa a simulação, caso estaja configurada, gerando os resultados no console
+	 * 
+	 */
 	public void startSimulation()
 	{
 		if(setup) {
 			
 			for(Integer address : addresses)
 			{
-				//TODO
+				if(!cache.findAddress(address))
+				{
+					totalCost += memHierarchy.searchAddress();
+				}
+				
+				totalCost++;
 			}
+			
+			printSimulationResult();
 		}
 		else
 		{
@@ -34,15 +45,27 @@ public class Simulator {
 		}
 	}
 	
+	/**
+	 * Configura a simulação, informando as caracteristicas da cache dos níveis de memória
+	 * 
+	 * @param addrFile	nome do arquivo de endereços a ser processado
+	 * @param cacheConfig	nome do arquivo de configuração da cache
+	 * @param memConfig		mome do arquivo de configuração dos níveis de memória
+	 */
 	public void configSimulation(String addrFile, String cacheConfig, String memConfig)
 	{
 		loadAddress(addrFile);
 		setCacheConfig(cacheConfig);
 		setMemoryHierarchy(memConfig);
+		setup = true;
 		
 		System.out.println("Simulacao configurada com sucesso!");
 	}
 	
+	/**
+	 * Inicia uma lista de endereços a partir de um arquivo
+	 * @param fileName	nome do arquivo com os endereços
+	 */
 	public void loadAddress(String fileName)
 	{
 		addresses = new LinkedList<>();
@@ -59,6 +82,11 @@ public class Simulator {
 		}
 	}
 	
+	/**
+	 * Configura a cache com os dados do arquivo informado
+	 * 
+	 * @param fileConfigName	nome do arquivo contendo os dados da cache
+	 */
 	public void setCacheConfig(String fileConfigName)
 	{
 		int cacheSize = 0;
@@ -98,6 +126,11 @@ public class Simulator {
 		}
 	}
 	
+	/**
+	 * Configura a hierarquia de memória do simulado a partir do arquivo informado
+	 * 
+	 * @param fileConfigName	nome do arquivo com os dados da hierarquia de memória
+	 */
 	public void setMemoryHierarchy(String fileConfigName)
 	{
 		memHierarchy = new MemoryHierarchy(fileConfigName);
@@ -105,9 +138,12 @@ public class Simulator {
 		System.out.println(memHierarchy);
 	}
 	
+	/**
+	 * Exibe o resultado da simulação no console
+	 */
 	public void printSimulationResult()
 	{
-		System.out.println("Resultado da Simulação: \n\n");
+		System.out.println("\nResultado da Simulação: \n");
 		cache.printCacheResult();
 		System.out.println(memHierarchy);
 		System.out.println("Tempo total: "+totalCost+" ut");

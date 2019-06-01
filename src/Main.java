@@ -7,6 +7,6 @@ public class Main {
 
 		Simulator simulator = new Simulator();		
 		simulator.configSimulation("enderecos_1.txt", "Cache_config.txt", "Hierarquia_de_memoria.txt");
-		
+		simulator.startSimulation();
 	}
 }

@@ -77,6 +77,12 @@ public class Set {
 	@Override
 	public String toString()
 	{
-		return lines.toString();
+		String string = "";
+		for(Line line : lines)
+		{
+			string += "\n   " + line.toString();
+		}
+		
+		return string;
 	}
 }

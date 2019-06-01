@@ -16,7 +16,7 @@ public class MemoryLevel {
 	
 	public boolean hasAddress(int randProb)
 	{
-		if(prob < randProb)
+		if(randProb < prob)
 		{
 			hit++;
 			return true;
