@@ -71,31 +71,29 @@ public class Cache {
 		String tagString = binAddress.substring(0, tagAddrSize);
 		String setString = binAddress.substring(tagAddrSize, tagAddrSize+setAddrSize);
 		String blockString = binAddress.substring(ADDRESSSIZE - blockAddrSize, ADDRESSSIZE);
-		System.out.println("Address = " + address);
-		System.out.println("Tag = " + Util.formatBinaryString(tagString, tagAddrSize));
-		System.out.println("Set = " + Util.formatBinaryString(setString, setAddrSize));
-		System.out.println("Block = " + Util.formatBinaryString(blockString, blockAddrSize));
+		System.out.println("[Address = " + address+
+						   ", Tag = " + Util.formatBinaryString(tagString, tagAddrSize)+
+						   ", Set = " + Util.formatBinaryString(setString, setAddrSize)+
+						   ", Block = " + Util.formatBinaryString(blockString, blockAddrSize)+"]");
 		
 		Set set = associativeSets.get(Integer.parseInt(setString, 2));
 		System.out.println(associativeSets);
-		try {
-			
-			set.findAddress(tagString, address);
-			hits++;
-			System.out.println("--->> HIT");
-			return true;
-			
-		}catch(DataNotFound e)
+		
+		switch(set.findAddress(tagString, address))
 		{
-			
-			int index = politicStrategy.getIndex(set);
-			set.replaceLine(index, tagString, address);
-			
-		}catch(ValidationBitFalse e)
-		{
-			
-			set.setLine(e.getIndex(), address);
-			
+			case FOUND:
+				hits++;
+				System.out.println("--->> HIT");
+				return true;
+				
+			case NOT_FOUND:
+				int index = politicStrategy.getIndex(set);
+				set.replaceLine(index, tagString, address);
+				break;
+				
+			case INVALID:
+				set.addLine(tagString, address);
+				break;
 		}
 
 		System.out.println("--->> MISS");
