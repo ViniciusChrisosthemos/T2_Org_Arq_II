@@ -51,7 +51,7 @@ public class Cache {
 			associativeSets.add(new Set(ways, blockAmount, tagAddrSize+1));
 		}
 		
-		politicStrategy = PoliticStrategy.randomAlgorithm();
+		politicStrategy = PoliticStrategy.leastFrequentUsedAlgortithm();
 		
 		System.out.println(toString());
 	}
@@ -184,16 +184,18 @@ public class Cache {
 	@Override
 	public String toString()
 	{
-		return "Cache info:\n	Cache size = "+cacheSize+" Bytes,\n"+
-			   "	Block amount = "+blockAmount+" \n"+
-			   "	Word size = "+wordSize+" Bytes\n"+
-			   "	Ways = "+ways+"\n"+
-			   "	Lines = "+lines+"\n"+
-			   "	Set size = "+associativeSetSize+
-			   "\nAddress info:\n"+
-			   "	Tag  = "+tagAddrSize+",\n"+
-			   "	Set  = "+setAddrSize+",\n"+
-			   "	Block = "+blockAddrSize;
+		return "Configuracao da Cache:\n	Tamanho da cache = "+cacheSize+" Bytes\n"+
+			   "	Quantidade de blocos = "+blockAmount+" \n"+
+			   "	Tamanho da palavra = "+wordSize+" Bytes\n"+
+			   "	Numero de vias = "+ways+"\n"+
+			   "	Quantidade de linhas = "+lines+"\n"+
+			   "	Quantidade de conjuntos = "+associativeSetSize+
+			   "\nDivisao dos enderecos: \n   " + addrFormatString();
+	}
+	
+	public String addrFormatString()
+	{
+		return "[Tag = "+tagAddrSize+", Conjunto = "+setAddrSize+", Bloco = "+blockAddrSize+"]";
 	}
 	
 	public static void main(String[] args) {

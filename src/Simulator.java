@@ -8,7 +8,7 @@ public class Simulator {
 	private Cache cache;
 	private MemoryHierarchy memHierarchy;
 	private List<Integer> addresses;
-	private int totalCost;
+	private float totalCost;
 	private boolean setup;
 	
 	public Simulator()
@@ -144,8 +144,11 @@ public class Simulator {
 	public void printSimulationResult()
 	{
 		System.out.println("\nResultado da Simulação: \n");
+		System.out.println("Quantidade de endereços acessados: " + addresses.size());
+		System.out.println(cache + "\n");
 		cache.printCacheResult();
 		System.out.println(memHierarchy);
-		System.out.println("Tempo total: "+totalCost+" ut");
+		System.out.println("Tempo medio de acesso: "+ String.format("%.2f", totalCost/((float)addresses.size()))+ " ut");
+		System.out.println("Tempo total: "+String.format("%.2f", totalCost)+" ut");
 	}
 }
