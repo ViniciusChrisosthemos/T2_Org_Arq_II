@@ -7,13 +7,13 @@ public class Line
 	private List<Integer> blocks;
 	private int accesses;
 	private int blocksAmount;
-	private int validationBit;
+	private boolean validationBit;
 		
-	public Line(String tag, int blocksAmount)
+	public Line(int blocksAmount, int tagSize)
 	{
-		this.tag = tag;
+		tag = Util.formatBinaryString("0", tagSize);
 		accesses = 0;
-		validationBit = 0;
+		validationBit = false;
 		this.blocksAmount = blocksAmount;
 		
 		blocks = new ArrayList<>(blocksAmount);
@@ -36,6 +36,11 @@ public class Line
 		accesses = 0;
 	}
 	
+	public boolean hasData(int data)
+	{
+		return blocks.get(data%blocksAmount) == data;
+	}
+	
 	public int getAccesses()
 	{
 		return accesses;
@@ -46,9 +51,29 @@ public class Line
 		return tag;
 	}
 	
+	public boolean contains(int value)
+	{
+		return blocks.contains(value);
+	}
+	
+	public void setTag(String tag)
+	{
+		this.tag = tag;
+	}
+	
+	public void setValidationBit(boolean bit)
+	{
+		validationBit = bit;
+	}
+	
+	public boolean isValid()
+	{
+		return validationBit;
+	}
+	
 	@Override
 	public String toString()
 	{
-		return "[Tag="+tag+", Blocks="+blocks+", Accesses="+accesses+"]";
+		return "[Tag="+tag+", Blocks="+blocks+", Accesses="+accesses+", Bit="+validationBit+"]";
 	}
 }

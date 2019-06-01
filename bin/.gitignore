@@ -9,3 +9,11 @@
 /Set.class
 /Simulator.class
 /Util.class
+/Exceptions.class
+/Exceptions$NoValidData.class
+/Exceptions$InvalidData.class
+/Exceptions$ValidadtionBitFalse.class
+/ValidadtionBitFalse.class
+/InvalidData.class
+/ValidationBitFalse.class
+/DataNotFound.class

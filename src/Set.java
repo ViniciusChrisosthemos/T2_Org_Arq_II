@@ -6,27 +6,71 @@ import java.util.Map;
 
 public class Set {
 	
-	private Map<String, Line> lines;
+	private List<Line> lines;
 	private int ways;
 	
-	public Set(int ways, int blockAmount)
+	public Set(int ways, int blockAmount, int tagSize)
 	{
 		this.ways = ways;
-		lines = new HashMap<>(blockAmount);
+		lines = new ArrayList<>(ways);
+		
+		for(int line=0; line<ways; line++)
+		{
+			lines.add(new Line(blockAmount, tagSize));
+		}
 	}
 	
-	public Collection<Line> getLines()
+	public void setLine(int index, int value)
 	{
-		return lines.values();
+		Line line = lines.get(index);
+		line.setLine(value);
+		line.setValidationBit(true);
+		lines.set(index, line);
 	}
 	
-	public List<String> getTags()
+	public void replaceLine(int index, String tag, int value)
 	{
-		return new ArrayList<String>(lines.keySet());
+		Line line = lines.get(index);
+		line.setLine(value);
+		line.setTag(tag);
+		lines.set(index, line);
+	}
+	
+	public void findAddress(String tag, int address) throws ValidationBitFalse, DataNotFound
+	{
+		int index = 0;
+		for(Line line : lines)
+		{
+			if(line.isValid()) 
+			{
+				if(line.getTag().equals(tag))
+				{
+					if(line.hasData(address)) return;
+					else throw new DataNotFound();
+				}
+			}else
+			{
+				throw new ValidationBitFalse(index);
+			}
+			index++;
+		}
+		
+		throw new DataNotFound();
+	}
+	
+	public List<Line> getLines()
+	{
+		return lines;
 	}
 	
 	public int getWays()
 	{
 		return ways;
+	}
+	
+	@Override
+	public String toString()
+	{
+		return lines.toString();
 	}
 }

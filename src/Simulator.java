@@ -8,18 +8,14 @@ public class Simulator {
 	private Cache cache;
 	private MemoryHierarchy memHierarchy;
 	private List<Integer> addresses;
-	private int simulationTime;
-	private int cacheHits;
-	private int cacheMiss;
+	private int totalCost;
 	private boolean setup;
 	
 	public Simulator()
 	{
 		cache = null;
 		memHierarchy = null;
-		simulationTime = 0;
-		cacheHits = 0;
-		cacheMiss = 0;
+		totalCost = 0;
 		setup = false;
 	}
 	
@@ -34,7 +30,7 @@ public class Simulator {
 		}
 		else
 		{
-			System.out.println("A simulacao deve ser configurada antes de ser iniciada");
+			System.out.println("A simulacao deve ser configurada antes de ser iniciada.");
 		}
 	}
 	
@@ -109,8 +105,11 @@ public class Simulator {
 		System.out.println(memHierarchy);
 	}
 	
-	public void setSimulationResult()
+	public void printSimulationResult()
 	{
-		//TODO
+		System.out.println("Resultado da Simulação: \n\n");
+		cache.printCacheResult();
+		System.out.println(memHierarchy);
+		System.out.println("Tempo total: "+totalCost+" ut");
 	}
 }

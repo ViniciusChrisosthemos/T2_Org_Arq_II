@@ -5,23 +5,18 @@ import java.util.Random;
 
 @FunctionalInterface
 interface PoliticStrategy {
-	String getIndex(Set set);
+	int getIndex(Set set);
 	
 	static PoliticStrategy leastFrequentUsedAlgortithm()
 	{
-		return set -> set.getLines()
+		return set -> set.getLines().indexOf(set.getLines()
 				.stream()
 				.min(Comparator.comparing(Line::getAccesses))
-				.get()
-				.getTag();
+				.get());
 	}
 	
 	static PoliticStrategy randomAlgorithm()
 	{
-		return set -> {
-			List<String> tags = set.getTags();
-			Collections.shuffle(tags);
-			return tags.get(0);
-		};
+		return set -> (new Random()).nextInt(set.getWays());
 	}
 }
