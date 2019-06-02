@@ -99,9 +99,6 @@ public class FileGenerator {
 				}
 			}
 			
-			System.out.println("Max = " + maxEnd + " EP = " + endProg);
-			System.out.println("Jumps = "+ jumps);
-			
 		}catch(IOException e)
 		{
 			System.out.println(e);

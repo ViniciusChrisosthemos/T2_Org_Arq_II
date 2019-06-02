@@ -8,7 +8,7 @@ import javafx.stage.Stage;
 
 public class StartApplication extends Application {
 
-	private static final int WIDTHSCREEN = 899;
+	private static final int WIDTHSCREEN = 1068;
 	private static final int HEIGHTSCREEN = 594;
 	
 	@Override

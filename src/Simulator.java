@@ -9,14 +9,12 @@ public class Simulator {
 	private MemoryHierarchy memHierarchy;
 	private List<Integer> addresses;
 	private float totalCost;
-	private boolean setup;
 	
 	public Simulator()
 	{
 		cache = new Cache();
 		memHierarchy = new MemoryHierarchy();
 		totalCost = 0;
-		setup = false;
 	}
 	
 	/**
@@ -25,8 +23,7 @@ public class Simulator {
 	 */
 	public void startSimulation()
 	{
-		if(setup) {
-			
+		if(setup()) {
 			for(Integer address : addresses)
 			{
 				if(!cache.findAddress(address))
@@ -36,8 +33,6 @@ public class Simulator {
 				
 				totalCost++;
 			}
-			
-			printSimulationResult();
 		}
 		else
 		{
@@ -62,9 +57,6 @@ public class Simulator {
 		loadAddress(addrFile);
 		setCacheConfig(cacheConfig);
 		setMemoryHierarchy(memConfig);
-		setup = true;
-		
-		System.out.println("Simulacao configurada com sucesso!");
 	}
 	
 	/**
@@ -123,8 +115,6 @@ public class Simulator {
 			}
 			
 			cache = new Cache(cacheSize, blockAmount, wordSize, ways);
-			
-			System.out.println("Cache configurada com sucesso!");
 		}catch(IOException e)
 		{
 			System.out.println(e);
@@ -139,22 +129,6 @@ public class Simulator {
 	public void setMemoryHierarchy(String fileConfigName)
 	{
 		memHierarchy = new MemoryHierarchy(fileConfigName);
-		System.out.println("Hierarquia de memoria configurada com sucesso!\n");
-		System.out.println(memHierarchy);
-	}
-	
-	/**
-	 * Exibe o resultado da simulação no console
-	 */
-	public void printSimulationResult()
-	{
-		System.out.println("\nResultado da Simulação: \n");
-		System.out.println("Quantidade de endereços acessados: " + addresses.size());
-		System.out.println(cache + "\n");
-		cache.printCacheResult();
-		System.out.println(memHierarchy);
-		System.out.println("Tempo medio de acesso: "+ String.format("%.2f", totalCost/((float)addresses.size()))+ " ut");
-		System.out.println("Tempo total: "+String.format("%.2f", totalCost)+" ut");
 	}
 
 	public Cache getCache() {
@@ -168,5 +142,33 @@ public class Simulator {
 	public List<MemoryLevel> getMemoryLevels()
 	{
 		return memHierarchy.getMemorys();
+	}
+
+	public boolean setup() {
+		return cache.setup() & memHierarchy.setup() & !addresses.isEmpty();
+	}
+
+	public float getTotalTime() {
+		return totalCost;
+	}
+
+	public float getTimeAverage() {
+		return totalCost / addresses.size();
+	}
+
+	public int getAddressAmount() {
+		return addresses.size();
+	}
+
+	public void setRandomAlgorithm() {
+		cache.setRandomAlgorithm();
+	}
+
+	public void setLFUAlgorithm() {
+		cache.setLeastFrequentUsedAlgortithm();
+	}
+
+	public void setLRUAlgorithm() {
+		cache.setLeastRecentUsedAlgortithm();
 	}
 }

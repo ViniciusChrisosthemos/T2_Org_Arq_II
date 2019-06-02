@@ -8,16 +8,18 @@ import java.util.Random;
 public class MemoryHierarchy {
 	Random rand;
 	List<MemoryLevel> memoryLevels;
+	private boolean setup;
 	
 	public MemoryHierarchy()
 	{
 		rand = new Random();
 		memoryLevels = new LinkedList<>();
+		setup = false;
 	}
 	
 	public MemoryHierarchy(String fileName)
 	{
-		super();
+		this();
 		loadMemoryLevels(fileName);
 	}
 	
@@ -37,6 +39,8 @@ public class MemoryHierarchy {
 		{
 			System.out.println(e);
 		}
+		
+		setup = true;
 	}
 	
 	public int searchAddress()
@@ -71,10 +75,16 @@ public class MemoryHierarchy {
 
 	public void addMemoryLevel(String id, int cost, int prob) {
 		memoryLevels.add(new MemoryLevel(id, cost, prob));
+		
+		setup = true;
 	}
 	
 	public List<MemoryLevel> getMemorys()
 	{
 		return memoryLevels;
+	}
+
+	public boolean setup() {
+		return setup;
 	}
 }

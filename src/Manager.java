@@ -3,6 +3,7 @@ import java.util.List;
 
 public class Manager {
 	private Simulator simulator;
+	private SimulationResult simulationResult;
 	
 	public Manager()
 	{
@@ -35,5 +36,45 @@ public class Manager {
 	public void setProgram(String progName) {
 		FileGenerator.getInstance().createAddressFile(progName, "enderecos_"+progName);
 		simulator.loadAddress("enderecos_"+progName);
+	}
+
+	public boolean simulatorSetup() {
+		return simulator.setup();
+	}
+
+	public void startSimulation() {
+		simulator.startSimulation();
+		simulationResult = new SimulationResult(simulator);
+	}
+
+	public SimulationResult getSimulationResult() {
+		return simulationResult;
+	}
+
+	public void loadCacheConfig(String fileConfigName) {
+		simulator.setCacheConfig(fileConfigName);
+	}
+	
+	public void loadMemConfig(String fileConfigName) {
+		simulator.setMemoryHierarchy(fileConfigName);
+	}
+
+	public void setAlgorithm(String algorithm) {
+		switch(algorithm)
+		{
+			case "Randômico":
+				simulator.setRandomAlgorithm();
+				break;
+			case "Least Frequent Used (LFU)":
+				simulator.setLFUAlgorithm();
+				break;
+			case "Least Recent Used (LRU)":
+				simulator.setLRUAlgorithm();
+				break;
+		}
+	}
+
+	public void loadAddresses(String fileName) {
+		simulator.loadAddress(fileName);
 	}
 }

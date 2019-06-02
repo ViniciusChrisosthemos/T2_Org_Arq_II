@@ -7,13 +7,16 @@ import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -104,7 +107,40 @@ public class MainController implements Initializable{
     private TextArea txtConsole;
 
     @FXML
-    private Label txtAddressFileName;
+    private Label lblAddressFileName;
+    
+    @FXML
+    private Label lblCacheConfigFile;
+    
+    @FXML
+    private Label lblMemConfigFile;
+
+    @FXML
+    private Button btnLoadCacheConfigFile;
+
+    @FXML
+    private Button btnLoadMemConfigFile;
+    
+    @FXML
+    private Button btnLoadAddresses;
+    
+    @FXML
+    private TableView<MemoryLevelDAO> tableMemorys;
+
+    @FXML
+    private TableColumn<String, String> colId;
+
+    @FXML
+    private TableColumn<String, Integer> colHits;
+
+    @FXML
+    private TableColumn<String, Float> colHitRate;
+
+    @FXML
+    private TableColumn<String, Integer> colMiss;
+
+    @FXML
+    private TableColumn<String, Float> colMissRate;
     
     private Manager manager;
     
@@ -113,10 +149,22 @@ public class MainController implements Initializable{
 		manager = new Manager();
 		Console.setMainController(this);
 		btnSetAlgorithm.setItems(FXCollections.observableArrayList("Randômico", "Least Frequent Used (LFU)", "Least Recent Used (LRU)"));
+		btnSetAlgorithm.getSelectionModel().selectFirst();
+		
+		colId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        colHits.setCellValueFactory(new PropertyValueFactory<>("hits"));
+        colHitRate.setCellValueFactory(new PropertyValueFactory<>("hitRate"));
+        colMiss.setCellValueFactory(new PropertyValueFactory<>("miss"));
+        colMissRate.setCellValueFactory(new PropertyValueFactory<>("missRate"));
 		
 		btnConfigCache.setOnAction(action -> setCacheConfig());
 		btnAddMemory.setOnAction(action -> addMemory());
 		btnLoadProgram.setOnAction(action -> loadProgram());
+		btnStartSimulation.setOnAction(action -> startSimulation());
+		btnLoadCacheConfigFile.setOnAction(action -> loadCacheConfigFile());
+		btnLoadMemConfigFile.setOnAction(action -> loadMemConfigFile());
+		btnSetAlgorithm.setOnAction(action -> selectAlgorithm());
+		btnLoadAddresses.setOnAction(action -> loadAddresses());
 	}
     
     private void setCacheConfig()
@@ -142,6 +190,11 @@ public class MainController implements Initializable{
     		
     		Console.log("Cache configurada com sucesso.");
     		
+    		if(manager.simulatorSetup())
+			{
+				lblSimulationState.setTextFill(Color.GREEN);
+				lblSimulationState.setText("Simulação configurada");
+			}
     		return;
     		
     	}catch(NumberFormatException ex)
@@ -166,6 +219,11 @@ public class MainController implements Initializable{
 			manager.addMemoryLevel(id, cost, prob);
 			listMemHierarchy.setItems(FXCollections.observableArrayList(manager.getMemoryLevelsDAO()));
 			
+			if(manager.simulatorSetup())
+			{
+				lblSimulationState.setTextFill(Color.GREEN);
+				lblSimulationState.setText("Simulação configurada");
+			}
 		}catch(NumberFormatException ex)
     	{
     		Console.log("Algum campo está preenchido incorretamente.");
@@ -177,24 +235,168 @@ public class MainController implements Initializable{
 	}
 	
 	
+	private void startSimulation()
+	{
+		try{
+			if(manager.simulatorSetup())
+			{
+				manager.startSimulation();
+				Console.log("Simulação Realizada com sucesso!");
+				
+				SimulationResult result = manager.getSimulationResult();
+				
+				lblTotalAddress.setText(String.valueOf(result.getTotalAddressesProcessed()));
+				lblCacheHits.setText(String.valueOf(result.getCacheHits()));
+				lblCacheMiss.setText(String.valueOf(result.getCacheMiss()));
+				lblCacheHitRate.setText(String.format("%.2f", result.getCacheHitRate()*100.f) + "%");
+				lblCacheMissRate.setText(String.format("%.2f", result.getCacheMissRate()*100.f) + "%");
+				
+
+				lblTimeAverage.setText(String.format("%.2f", result.getTimeAverage()) + " ut");
+				lblTotalCost.setText(String.valueOf(result.getTotalTime()) + " ut");
+				
+				tableMemorys.setItems(FXCollections.observableArrayList(manager.getMemoryLevelsDAO()));
+				
+			}else
+			{
+				Console.log("A simulação não foi completamente configurada para ser iniciada.");
+			}
+		}catch(RuntimeException ex)
+		{
+			Console.log("Erro ao começar a simulação!\nERRO = "+ex.getMessage());
+		}
+	}
+	
 	private void loadProgram()
 	{
 		try {
             FileChooser fc = new FileChooser();
             File file = fc.showOpenDialog(new Stage());
-            String dir = System.getProperty("user.dir");
             if (file.getName().endsWith(".txt")) {
             	
             	manager.setProgram(file.getName());
+            	Console.log("arquivo de endereços criado com sucesso!");
+
+            	lblAddressFileName.setTextFill(Color.GREEN);
+            	lblAddressFileName.setText("enderecos_"+file.getName());
             	
+            	if(manager.simulatorSetup())
+    			{
+    				lblSimulationState.setTextFill(Color.GREEN);
+    				lblSimulationState.setText("Simulação configurada");
+    			}
             } else {
                 Console.log("Arquivo selecionado não suportado!");
             }
-            
-           
 
         } catch (Exception ex) {
         	Console.log("Erro ao carregar o programa");
+        }
+	}
+	
+	private void loadCacheConfigFile()
+	{
+		try {
+            FileChooser fc = new FileChooser();
+            File file = fc.showOpenDialog(new Stage());
+            if (file.getName().endsWith(".txt")) {
+            	
+            	manager.loadCacheConfig(file.getName());
+            	Console.log("Cache configurada com sucesso!");
+
+            	lblCacheConfigFile.setTextFill(Color.GREEN);
+            	lblCacheConfigFile.setText(file.getName());
+            	
+            	CacheDAO cacheDAO = manager.getCacheDAO();
+        		
+            	txtCacheSize.setText(String.valueOf(cacheDAO.getCacheSize()));
+            	txtBlockAmount.setText(String.valueOf(cacheDAO.getBlockAmount()));
+            	txtWordSize.setText(String.valueOf(cacheDAO.getWordSize()));
+            	txtWays.setText(String.valueOf(cacheDAO.getWays()));
+        		lblLines.setText(String.valueOf(cacheDAO.getLines()));
+        		lblSetAmount.setText(String.valueOf(cacheDAO.getAssociativeSetSize()));
+        		String addrFormat = "[ Tag = "+cacheDAO.getTagAddrSize()+
+        							", Conjunto = "+cacheDAO.getSetAddrSize()+
+        							", Bloco = "+cacheDAO.getBlockAddrSize()+" ]";
+        		lblAddrFormat.setText(addrFormat);
+        		lblCacheStatus.setText("Configurada!");
+        		
+        		if(manager.simulatorSetup())
+    			{
+    				lblSimulationState.setTextFill(Color.GREEN);
+    				lblSimulationState.setText("Simulação configurada");
+    			}
+            } else {
+                Console.log("Arquivo selecionado não suportado!");
+            }
+
+        } catch (Exception ex) {
+        	Console.log("Erro ao carregar a configuração!");
+        }
+	}
+	
+	private void loadMemConfigFile()
+	{
+		try {
+            FileChooser fc = new FileChooser();
+            File file = fc.showOpenDialog(new Stage());
+            if (file.getName().endsWith(".txt")) {
+            	
+            	manager.loadMemConfig(file.getName());
+            	Console.log("Hierarquia de memória configurada com sucesso!");
+            	lblMemConfigFile.setTextFill(Color.GREEN);
+            	lblMemConfigFile.setText(file.getName());
+            	
+    			listMemHierarchy.setItems(FXCollections.observableArrayList(manager.getMemoryLevelsDAO()));
+    			
+    			if(manager.simulatorSetup())
+    			{
+    				lblSimulationState.setTextFill(Color.GREEN);
+    				lblSimulationState.setText("Simulação configurada");
+    			}
+            } else {
+                Console.log("Arquivo selecionado não suportado!");
+            }
+
+        } catch (Exception ex) {
+        	Console.log("Erro ao carregar a configuração!");
+        }
+	}
+	
+	private void selectAlgorithm()
+	{
+		String algorithm = btnSetAlgorithm.getSelectionModel().getSelectedItem();
+		
+		manager.setAlgorithm(algorithm);
+		
+		Console.log("Algoritmo "+algorithm+" configurado com sucesso!");
+	}
+	
+	private void loadAddresses()
+	{
+		try {
+            FileChooser fc = new FileChooser();
+            File file = fc.showOpenDialog(new Stage());
+            if (file.getName().endsWith(".txt")) {
+            	
+            	manager.loadAddresses(file.getName());
+            	
+            	Console.log("Endereços carregados com sucesso!");
+            	
+            	lblAddressFileName.setTextFill(Color.GREEN);
+            	lblAddressFileName.setText(file.getName());
+            	
+    			if(manager.simulatorSetup())
+    			{
+    				lblSimulationState.setTextFill(Color.GREEN);
+    				lblSimulationState.setText("Simulação configurada");
+    			}
+            } else {
+                Console.log("Arquivo selecionado não suportado!");
+            }
+
+        } catch (Exception ex) {
+        	Console.log("Erro ao carregar a configuração!");
         }
 	}
 

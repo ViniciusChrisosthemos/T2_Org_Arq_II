@@ -25,6 +25,9 @@ public class Cache {
 	private int hits;
 	private int miss;
 	
+	//Controle
+	private boolean setup;
+	
 	public Cache()
 	{
 		cacheSize = 0;
@@ -40,6 +43,7 @@ public class Cache {
 		tagAddrSize = 0;
 		hits = 0;
 		miss = 0;
+		setup = false;
 	}
 	
 	/**
@@ -70,8 +74,8 @@ public class Cache {
 		}
 		
 		politicStrategy = PoliticStrategy.leastFrequentUsedAlgortithm();
-		
-		System.out.println(toString());
+
+		setup = true;
 	}
 	
 	/**
@@ -88,20 +92,13 @@ public class Cache {
 		
 		String tagString = binAddress.substring(0, tagAddrSize);
 		String setString = binAddress.substring(tagAddrSize, tagAddrSize+setAddrSize);
-		String blockString = binAddress.substring(ADDRESSSIZE - blockAddrSize, ADDRESSSIZE);
-		System.out.println("[Address = " + address+
-						   ", Tag = " + Util.formatBinaryString(tagString, tagAddrSize)+
-						   ", Set = " + Util.formatBinaryString(setString, setAddrSize)+
-						   ", Block = " + Util.formatBinaryString(blockString, blockAddrSize)+"]");
 		
 		Set set = associativeSets.get(Integer.parseInt(setString, 2));
-		System.out.println(associativeSets);
 		
 		switch(set.findAddress(tagString, address))
 		{
 			case FOUND:
 				hits++;
-				System.out.println("--->> HIT");
 				return true;
 				
 			case NOT_FOUND:
@@ -114,7 +111,6 @@ public class Cache {
 				break;
 		}
 
-		System.out.println("--->> MISS");
 		miss++;
 		return false;
 	}
@@ -128,11 +124,19 @@ public class Cache {
 	}
 	
 	/**
-	 * Define a política de substituição pelo menos recente acessado
+	 * Define a política de substituição pelo menos frequente acessado
 	 */
 	public void setLeastFrequentUsedAlgortithm()
 	{
 		politicStrategy = PoliticStrategy.leastFrequentUsedAlgortithm();
+	}
+	
+	/**
+	 * Define a política de substituição pelo mais recente acessado
+	 */
+	public void setLeastRecentUsedAlgortithm()
+	{
+		politicStrategy = PoliticStrategy.leastRecentUsedAlgortithm();
 	}
 	
 	/**
@@ -190,40 +194,6 @@ public class Cache {
 	{
 		return hits;
 	}
-	
-	/**
-	 * Exibe no console o resultado da Cache
-	 */
-	public void printCacheResult()
-	{
-		System.out.println("Cache = [Hits= "+hits+", Miss="+miss+"]");
-	}
-	
-	@Override
-	public String toString()
-	{
-		return "Configuracao da Cache:\n	Tamanho da cache = "+cacheSize+" Bytes\n"+
-			   "	Quantidade de blocos = "+blockAmount+" \n"+
-			   "	Tamanho da palavra = "+wordSize+" Bytes\n"+
-			   "	Numero de vias = "+ways+"\n"+
-			   "	Quantidade de linhas = "+lines+"\n"+
-			   "	Quantidade de conjuntos = "+associativeSetSize+
-			   "\nDivisao dos enderecos: \n   " + addrFormatString();
-	}
-	
-	public String addrFormatString()
-	{
-		return "[Tag = "+tagAddrSize+", Conjunto = "+setAddrSize+", Bloco = "+blockAddrSize+"]";
-	}
-	
-	public static void main(String[] args) {
-		Cache c = new Cache(32, 2, 4, 2);
-		for(int i=0; i<31; i++)
-		{
-			System.out.println(c.findAddress(i));
-			c.printSets();
-		}
-	}
 
 	public int getCacheSize() {
 		return cacheSize;
@@ -255,6 +225,30 @@ public class Cache {
 
 	public int getAddressSize() {
 		return ADDRESSSIZE;
+	}
+
+	public boolean setup() {
+		return setup;
+	}
+	
+	@Override
+	public String toString()
+	{
+		return "Configuracao da Cache:\n	Tamanho da cache = "+cacheSize+" Bytes\n"+
+			   "	Quantidade de blocos = "+blockAmount+" \n"+
+			   "	Tamanho da palavra = "+wordSize+" Bytes\n"+
+			   "	Numero de vias = "+ways+"\n"+
+			   "	Quantidade de linhas = "+lines+"\n"+
+			   "	Quantidade de conjuntos = "+associativeSetSize;
+	}
+	
+	public static void main(String[] args) {
+		Cache c = new Cache(32, 2, 4, 2);
+		for(int i=0; i<31; i++)
+		{
+			System.out.println(c.findAddress(i));
+			c.printSets();
+		}
 	}
 }
 
