@@ -87,4 +87,11 @@ public class MemoryHierarchy {
 	public boolean setup() {
 		return setup;
 	}
+
+	public void resetValues() {
+		for(MemoryLevel memLvl : memoryLevels)
+		{
+			memLvl.resetValues();
+		}
+	}
 }

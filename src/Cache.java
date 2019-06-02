@@ -70,7 +70,7 @@ public class Cache {
 		associativeSets = new ArrayList<>(associativeSetSize+1);
 		for(int i=0; i<associativeSetSize+1; i++)
 		{
-			associativeSets.add(new Set(ways, blockAmount, tagAddrSize+1));
+			associativeSets.add(new Set(ways, blockAmount));
 		}
 		
 		politicStrategy = PoliticStrategy.leastFrequentUsedAlgortithm();
@@ -94,24 +94,28 @@ public class Cache {
 		String setString = binAddress.substring(tagAddrSize, tagAddrSize+setAddrSize);
 		
 		Set set = associativeSets.get(Integer.parseInt(setString, 2));
-		
+		//System.out.println("Endereço: "+address + "["+tagString+", "+setString+", "+address%blockAmount+"]:");
 		switch(set.findAddress(tagString, address))
 		{
 			case FOUND:
 				hits++;
+				//System.out.println("------> Hit");
+				//System.out.println(set);
 				return true;
 				
 			case NOT_FOUND:
 				int index = politicStrategy.getIndex(set);
 				set.replaceLine(index, tagString, address);
+				//System.out.println("-> NOT_FOUND");
 				break;
 				
 			case INVALID:
+				//System.out.println("------> INVALID");
 				set.addLine(tagString, address);
 				break;
 		}
-
 		miss++;
+		//System.out.println(set);
 		return false;
 	}
 	
@@ -248,6 +252,17 @@ public class Cache {
 		{
 			System.out.println(c.findAddress(i));
 			c.printSets();
+		}
+	}
+
+	public void resetValues() {
+		hits = 0;
+		miss = 0;
+		
+		associativeSets = new ArrayList<>(associativeSetSize+1);
+		for(int i=0; i<associativeSetSize+1; i++)
+		{
+			associativeSets.add(new Set(ways, blockAmount));
 		}
 	}
 }

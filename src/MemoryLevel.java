@@ -63,4 +63,9 @@ public class MemoryLevel {
 		
 		return id+ " = [hit="+hit+", miss="+miss+", missPenalty="+missPenalty+", prob="+prob+"]";
 	}
+
+	public void resetValues() {
+		hit = 0;
+		miss = 0;
+	}
 }

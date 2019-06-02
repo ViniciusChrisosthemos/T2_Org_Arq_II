@@ -14,6 +14,7 @@ public class Simulator {
 	{
 		cache = new Cache();
 		memHierarchy = new MemoryHierarchy();
+		addresses = new LinkedList<>();
 		totalCost = 0;
 	}
 	
@@ -24,6 +25,8 @@ public class Simulator {
 	public void startSimulation()
 	{
 		if(setup()) {
+			resetValues();
+			
 			for(Integer address : addresses)
 			{
 				if(!cache.findAddress(address))
@@ -34,12 +37,14 @@ public class Simulator {
 				totalCost++;
 			}
 		}
-		else
-		{
-			System.out.println("A simulacao deve ser configurada antes de ser iniciada.");
-		}
 	}
 	
+	private void resetValues() {
+		cache.resetValues();
+		memHierarchy.resetValues();
+		totalCost = 0.0f;
+	}
+
 	public void setCacheConfig(int cacheSize, int blockAmount, int wordSize, int ways)
 	{
 		cache = new Cache(cacheSize, blockAmount, wordSize, ways);
@@ -144,7 +149,8 @@ public class Simulator {
 		return memHierarchy.getMemorys();
 	}
 
-	public boolean setup() {
+	public boolean setup() 
+	{
 		return cache.setup() & memHierarchy.setup() & !addresses.isEmpty();
 	}
 

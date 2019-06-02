@@ -9,13 +9,11 @@ public class Set {
 	private List<Line> lines;
 	private int ways;
 	private int blockAmount;
-	private int tagSize;
 	
-	public Set(int ways, int blockAmount, int tagSize)
+	public Set(int ways, int blockAmount)
 	{
 		this.ways = ways;
 		this.blockAmount = blockAmount;
-		this.tagSize = tagSize;
 		lines = new ArrayList<>(ways);
 	}
 	

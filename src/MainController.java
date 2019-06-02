@@ -331,6 +331,7 @@ public class MainController implements Initializable{
             }
 
         } catch (Exception ex) {
+        	ex.printStackTrace();
         	Console.log("Erro ao carregar a configuração!");
         }
 	}
