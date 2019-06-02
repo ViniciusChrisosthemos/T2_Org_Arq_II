@@ -343,9 +343,9 @@
                         <Font name="System Bold" size="18.0" />
                      </font>
                   </Label>
-                  <TableView fx:id="tableMemorys" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.rowSpan="6">
+                  <TableView fx:id="tableMemorys" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.rowSpan="8">
                      <GridPane.margin>
-                        <Insets left="10.0" />
+                        <Insets bottom="10.0" left="10.0" />
                      </GridPane.margin>
                      <columns>
                         <TableColumn fx:id="colId" prefWidth="65.0" text="ID" />
@@ -407,7 +407,7 @@
                      </GridPane.margin></Label>
                   <TextArea fx:id="txtConsole" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowSpan="6">
                      <GridPane.margin>
-                        <Insets bottom="10.0" right="10.0" top="10.0" />
+                        <Insets bottom="10.0" right="5.0" top="10.0" />
                      </GridPane.margin>
                   </TextArea>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="2">

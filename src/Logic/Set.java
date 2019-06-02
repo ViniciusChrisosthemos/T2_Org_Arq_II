@@ -21,12 +21,29 @@ public class Set {
 		}
 	}
 	
+	public int setLine(String tag, int value)
+	{
+		int index = 0;
+		for(Line line : lines)
+		{
+			if(!line.isValid())
+			{
+				line.setLine(tag, value);
+				line.setValidateBit(true);
+				line.setAccesses(1);
+				break;
+			}
+			index++;
+		}
+		
+		return index;
+	}
+	
 	public void replaceLine(int index, String tag, int value)
 	{
 		Line line = lines.get(index);
 		line.setLine(tag, value);
-		line.setValidateBit(true);
-		line.addAccesses();
+		line.setAccesses(1);
 		lines.set(index, line);
 	}
 	
@@ -55,6 +72,11 @@ public class Set {
 	public int getWays()
 	{
 		return ways;
+	}
+	
+	public boolean isFull()
+	{
+		return lines.stream().allMatch(line -> line.isValid());
 	}
 	
 	@Override

@@ -10,3 +10,9 @@
 /MemoryLevelDAO.class
 /SimulationResult.class
 /Logic/
+/SetCell.class
+/SetStepDAO.class
+/Step.class
+/SimulationStep.class
+/SimulationSteps.class
+/SimulationStepsController.class

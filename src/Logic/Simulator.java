@@ -4,6 +4,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.ListIterator;
 
 public class Simulator {
 	private Cache cache;
@@ -78,7 +79,6 @@ public class Simulator {
 			{
 				addresses.add(Integer.parseInt(reader.readLine()));
 			}
-			
 		}catch(IOException e)
 		{
 			System.out.println(e);

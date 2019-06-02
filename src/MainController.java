@@ -1,12 +1,15 @@
 
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
@@ -157,6 +160,11 @@ public class MainController implements Initializable{
         colMiss.setCellValueFactory(new PropertyValueFactory<>("miss"));
         colMissRate.setCellValueFactory(new PropertyValueFactory<>("missRate"));
 		
+        setEventHandlers();
+	}
+	
+	private void setEventHandlers()
+	{
 		btnConfigCache.setOnAction(action -> setCacheConfig());
 		btnAddMemory.setOnAction(action -> addMemory());
 		btnLoadProgram.setOnAction(action -> loadProgram());
@@ -166,7 +174,7 @@ public class MainController implements Initializable{
 		btnSetAlgorithm.setOnAction(action -> selectAlgorithm());
 		btnLoadAddresses.setOnAction(action -> loadAddresses());
 	}
-    
+	
     private void setCacheConfig()
     {
     	try

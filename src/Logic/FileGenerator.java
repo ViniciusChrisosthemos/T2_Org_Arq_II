@@ -46,7 +46,8 @@ public class FileGenerator {
 				{
 					if(jump.conditional)
 					{
-						if(rand.nextInt(100) <= jump.prob) address = jump.destiny;	
+						if(rand.nextInt(100) <= jump.prob) address = jump.destiny;
+						else address++;
 					}
 					else
 					{

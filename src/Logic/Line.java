@@ -51,6 +51,10 @@ public class Line
 	{
 		return validateBit;
 	}
+
+	public void setAccesses(int access) {
+		this.accesses = access;
+	}
 	
 	@Override
 	public String toString()

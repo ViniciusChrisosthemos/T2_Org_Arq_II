@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ListIterator;
 
 import Logic.FileGenerator;
 import Logic.MemoryLevel;
@@ -80,5 +81,13 @@ public class Manager {
 
 	public void loadAddresses(String fileName) {
 		simulator.loadAddress(fileName);
+	}
+
+	public int getSetAmount() {
+		return simulator.getCache().getAssociativeSetSize();
+	}
+
+	public int getSetWays() {
+		return  simulator.getCache().getWays();
 	}
 }

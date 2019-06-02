@@ -64,19 +64,17 @@ public class Cache {
 		
 		lines = cacheSize/(blockAmount*wordSize);
 		associativeSetSize = lines/ways;
-		setAddrSize = Integer.toBinaryString(associativeSetSize).length()-1;
-		blockAddrSize = Integer.toBinaryString(blockAmount).length()-1;
+		setAddrSize = (int) (Math.log(associativeSetSize) / Math.log(2));
+		blockAddrSize = (int) (Math.log(blockAmount) / Math.log(2));
 		tagAddrSize = ADDRESSSIZE - setAddrSize - blockAddrSize;
 		
 		associativeSets = new ArrayList<>(associativeSetSize);
 		for(int i=0; i<associativeSetSize; i++)
 		{
-
-			System.out.println("---------------------------------"+associativeSetSize);
 			associativeSets.add(new Set(ways));
 		}
 		
-		politicStrategy = PoliticStrategy.leastFrequentUsedAlgortithm();
+		politicStrategy = PoliticStrategy.randomAlgorithm();
 
 		setup = true;
 	}
@@ -95,28 +93,34 @@ public class Cache {
 		
 		String tagString = binAddress.substring(0, tagAddrSize);
 		String setString = binAddress.substring(tagAddrSize, tagAddrSize+setAddrSize);
-		int data = address%wordSize;
+		String data = binAddress.substring(binAddress.length()-wordSize, binAddress.length());
 		
-		Set set = associativeSets.get(Integer.parseInt(setString, 2));
+		int setIndex = Integer.parseInt(setString, 2);
+		Set set = associativeSets.get(setIndex);
 
-		System.out.println(address + " = ["+tagString+", "+setString+", "+Integer.toBinaryString(data)+"]");
-		
+		//System.out.println(address + " = ["+tagString+", "+setString+", "+data+"]");
+
 		if(set.findAddress(tagString))
 		{
 			hits++;
 
-			System.out.println("-> HIT\n"+set);
+			//System.out.println("-> HIT\n"+associativeSets);
 			return true;
 		}
 		
-		int index = politicStrategy.getIndex(set);
-		set.replaceLine(index, tagString, data);
+		int index;
 		
+		if(set.isFull())
+		{
+			index = politicStrategy.getIndex(set);
+			set.replaceLine(index, tagString, Integer.parseInt(data, 2));
+		}else
+		{
+			index = set.setLine(tagString, Integer.parseInt(data, 2));
+		}
+
+		//System.out.println("-> MISS\n"+associativeSets);
 		miss++;
-		System.out.println("-> MISS ("+index+")\n"+set);
-		System.out.println("---------------------------------");
-		System.out.println(associativeSets);
-		System.out.println("---------------------------------");
 		return false;
 	}
 	
@@ -261,7 +265,8 @@ public class Cache {
 
 	
 	public static void main(String[] args) {
-		Cache c = new Cache(32, 2, 4, 2);
+		Cache c = new Cache(64, 2, 4, 4);
+		System.out.println(c);
 		for(int i=0; i<31; i++)
 		{
 			System.out.println(c.findAddress(i));
