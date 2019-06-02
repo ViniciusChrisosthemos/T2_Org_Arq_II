@@ -1,3 +1,4 @@
+import Logic.MemoryLevel;
 
 public class MemoryLevelDAO {
 	private String id;

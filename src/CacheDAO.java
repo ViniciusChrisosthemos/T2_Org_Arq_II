@@ -1,4 +1,4 @@
-import java.util.List;
+import Logic.Cache;
 
 public class CacheDAO {
 	private int cacheSize;

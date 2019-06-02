@@ -1,6 +1,10 @@
 import java.util.ArrayList;
 import java.util.List;
 
+import Logic.FileGenerator;
+import Logic.MemoryLevel;
+import Logic.Simulator;
+
 public class Manager {
 	private Simulator simulator;
 	private SimulationResult simulationResult;

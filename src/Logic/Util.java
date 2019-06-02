@@ -1,3 +1,4 @@
+package Logic;
 
 public class Util {
 	public static String formatBinaryString(String binString, int bits)
