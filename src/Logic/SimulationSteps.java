@@ -16,6 +16,14 @@ public class SimulationSteps {
 		this.associativeSets = associativeSets;
 	}
 	
+	public void finishSimulation()
+	{
+		while(currentStep.hasNext())
+		{
+			doStep();
+		}
+	}
+	
 	public void startSimulation()
 	{
 		currentStep = steps.listIterator();
@@ -52,6 +60,8 @@ public class SimulationSteps {
 				associativeSets.set(missStep.getAddr().getSet(), set);
 			}
 		}
+		
+		System.out.println(step);
 	}
 	
 	public String getAssociativeSetsStatus()

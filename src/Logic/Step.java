@@ -30,6 +30,6 @@ public class Step {
 	@Override
 	public String toString()
 	{
-		return "Endereço: "+addr+" Index = "+index+" -> HIT";
+		return "Endereço: "+addr+", Index = "+index+" -> HIT";
 	}
 }

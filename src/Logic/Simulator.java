@@ -39,10 +39,13 @@ public class Simulator {
 				{
 					totalCost += memHierarchy.searchAddress();
 				}
-				System.out.println(step);
+				//System.out.println(step);
 				totalCost++;
 			}
 		}
+		
+		simulationSteps.startSimulation();
+		simulationSteps.finishSimulation();
 	}
 	
 	private void resetValues() {
