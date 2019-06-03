@@ -66,6 +66,7 @@ public class Cache {
 		associativeSetSize = lines/ways;
 		setAddrSize = (int) (Math.log(associativeSetSize) / Math.log(2));
 		blockAddrSize = (int) (Math.log(blockAmount) / Math.log(2));
+		blockAddrSize = (blockAddrSize == 0) ? 1:blockAddrSize;
 		tagAddrSize = ADDRESSSIZE - setAddrSize - blockAddrSize;
 		
 		associativeSets = new ArrayList<>(associativeSetSize);
@@ -93,18 +94,19 @@ public class Cache {
 		
 		String tagString = binAddress.substring(0, tagAddrSize);
 		String setString = binAddress.substring(tagAddrSize, tagAddrSize+setAddrSize);
-		String data = binAddress.substring(binAddress.length()-wordSize, binAddress.length());
+		String data = binAddress.substring(binAddress.length()-blockAddrSize, binAddress.length());
 		
 		int setIndex = Integer.parseInt(setString, 2);
 		Set set = associativeSets.get(setIndex);
 
-		//System.out.println(address + " = ["+tagString+", "+setString+", "+data+"]");
+		System.out.print(address + " = ["+tagString+", "+setString+", "+data+"] -> ");
 
 		if(set.findAddress(tagString))
 		{
 			hits++;
 
-			//System.out.println("-> HIT\n"+associativeSets);
+			System.out.println("HIT");
+			System.out.println(associativeSets);
 			return true;
 		}
 		
@@ -119,7 +121,8 @@ public class Cache {
 			index = set.setLine(tagString, Integer.parseInt(data, 2));
 		}
 
-		//System.out.println("-> MISS\n"+associativeSets);
+		System.out.println("MISS");
+		System.out.println(associativeSets);
 		miss++;
 		return false;
 	}
@@ -265,12 +268,11 @@ public class Cache {
 
 	
 	public static void main(String[] args) {
-		Cache c = new Cache(64, 2, 4, 4);
+		Cache c = new Cache(64, 1, 4, 4);
 		System.out.println(c);
 		for(int i=0; i<31; i++)
 		{
-			System.out.println(c.findAddress(i));
-			c.printSets();
+			c.findAddress(i);
 		}
 	}
 }
