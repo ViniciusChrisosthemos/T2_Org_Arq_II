@@ -5,7 +5,6 @@ import java.util.List;
 
 public class Cache {
 	//Constantes utilizadas
-	private static final int ADDRESSSIZE = 32;
 	
 	//Informações da estrutura da Cache
 	private int cacheSize;
@@ -67,7 +66,7 @@ public class Cache {
 		setAddrSize = (int) (Math.log(associativeSetSize) / Math.log(2));
 		blockAddrSize = (int) (Math.log(blockAmount) / Math.log(2));
 		blockAddrSize = (blockAddrSize == 0) ? 1:blockAddrSize;
-		tagAddrSize = ADDRESSSIZE - setAddrSize - blockAddrSize;
+		tagAddrSize = Address.ADDRESSSIZE - setAddrSize - blockAddrSize;
 		
 		associativeSets = new ArrayList<>(associativeSetSize);
 		for(int i=0; i<associativeSetSize; i++)
@@ -88,26 +87,21 @@ public class Cache {
 	 * 		True se achar
 	 * 		False caso contrário
 	 */
-	public boolean findAddress(int address)
+	public Step findAddress(int address)
 	{
-		String binAddress = Util.formatBinaryString(Integer.toBinaryString(address), ADDRESSSIZE);
+		Address addr = Address.getFormattedAddress(address, tagAddrSize, setAddrSize, blockAddrSize); 
 		
-		String tagString = binAddress.substring(0, tagAddrSize);
-		String setString = binAddress.substring(tagAddrSize, tagAddrSize+setAddrSize);
-		String data = binAddress.substring(binAddress.length()-blockAddrSize, binAddress.length());
-		
-		int setIndex = Integer.parseInt(setString, 2);
-		Set set = associativeSets.get(setIndex);
+		Set set = associativeSets.get(addr.getSet());
 
-		System.out.print(address + " = ["+tagString+", "+setString+", "+data+"] -> ");
+		//System.out.print(addr);
 
-		if(set.findAddress(tagString))
+		if(set.findAddress(addr.getTag()))
 		{
 			hits++;
 
-			System.out.println("HIT");
-			System.out.println(associativeSets);
-			return true;
+			//System.out.println("HIT");
+			//System.out.println(associativeSets);
+			return new Step(addr, set.getIndex(addr.getTag()));
 		}
 		
 		int index;
@@ -115,16 +109,16 @@ public class Cache {
 		if(set.isFull())
 		{
 			index = politicStrategy.getIndex(set);
-			set.replaceLine(index, tagString, Integer.parseInt(data, 2));
+			set.replaceLine(index, addr.getTag(), addr.getBlock());
 		}else
 		{
-			index = set.setLine(tagString, Integer.parseInt(data, 2));
+			index = set.setLine(addr.getTag(), addr.getBlock());
 		}
 
-		System.out.println("MISS");
-		System.out.println(associativeSets);
+		//System.out.println("MISS");
+		//System.out.println(associativeSets);
 		miss++;
-		return false;
+		return new MissStep(addr, index, set.isFull());
 	}
 	
 	/**
@@ -236,11 +230,16 @@ public class Cache {
 	}
 
 	public int getAddressSize() {
-		return ADDRESSSIZE;
+		return Address.ADDRESSSIZE;
 	}
 
 	public boolean setup() {
 		return setup;
+	}
+	
+	public List<Set> getAssociativeSets()
+	{
+		return associativeSets;
 	}
 	
 	@Override
@@ -259,7 +258,7 @@ public class Cache {
 		miss = 0;
 		
 		associativeSets = new ArrayList<>(associativeSetSize+1);
-		for(int i=0; i<associativeSetSize+1; i++)
+		for(int i=0; i<associativeSetSize; i++)
 		{
 			associativeSets.add(new Set(ways));
 		}
@@ -268,7 +267,7 @@ public class Cache {
 
 	
 	public static void main(String[] args) {
-		Cache c = new Cache(64, 1, 4, 4);
+		Cache c = new Cache(128, 4, 16, 2);
 		System.out.println(c);
 		for(int i=0; i<31; i++)
 		{

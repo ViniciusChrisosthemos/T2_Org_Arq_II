@@ -11,6 +11,7 @@ public class Simulator {
 	private MemoryHierarchy memHierarchy;
 	private List<Integer> addresses;
 	private float totalCost;
+	private SimulationSteps simulationSteps;
 	
 	public Simulator()
 	{
@@ -28,14 +29,17 @@ public class Simulator {
 	{
 		if(setup()) {
 			resetValues();
-			
+			simulationSteps = new SimulationSteps(addresses.size(), cache.getAssociativeSets());
+			Step step;
 			for(Integer address : addresses)
 			{
-				if(!cache.findAddress(address))
+				step = cache.findAddress(address);
+				simulationSteps.addStep(step);
+				if(step instanceof MissStep)
 				{
 					totalCost += memHierarchy.searchAddress();
 				}
-				
+				System.out.println(step);
 				totalCost++;
 			}
 		}
@@ -178,4 +182,7 @@ public class Simulator {
 	public void setLRUAlgorithm() {
 		cache.setLeastRecentUsedAlgortithm();
 	}
+	
+	
+	
 }

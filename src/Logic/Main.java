@@ -8,6 +8,8 @@ public class Main {
 
 		Simulator simulator = new Simulator();		
 		simulator.configSimulation("enderecos_1.txt", "Cache_config.txt", "Hierarquia_de_memoria.txt");
+		System.out.println(simulator.getCache());
 		simulator.startSimulation();
+		System.out.println(simulator.getCache().getAssociativeSets());
 	}
 }

@@ -1,4 +1,4 @@
-Cache_size: 65536
-Block_amount: 32
+Cache_size: 128
+Block_amount: 2
 Word_size: 8
 Ways: 4

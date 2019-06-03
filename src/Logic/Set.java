@@ -21,7 +21,7 @@ public class Set {
 		}
 	}
 	
-	public int setLine(String tag, int value)
+	public int setLine(int tag, int value)
 	{
 		int index = 0;
 		for(Line line : lines)
@@ -39,7 +39,7 @@ public class Set {
 		return index;
 	}
 	
-	public void replaceLine(int index, String tag, int value)
+	public void replaceLine(int index, int tag, int value)
 	{
 		Line line = lines.get(index);
 		line.setLine(tag, value);
@@ -47,13 +47,13 @@ public class Set {
 		lines.set(index, line);
 	}
 	
-	public boolean findAddress(String tag)
+	public boolean findAddress(int tag)
 	{
 		for(Line line : lines)
 		{
 			if(line.isValid())
 			{
-				if(tag.equals(line.getTag()))
+				if(tag == line.getTag())
 				{
 					line.addAccesses();
 					return true;
@@ -72,6 +72,18 @@ public class Set {
 	public int getWays()
 	{
 		return ways;
+	}
+	
+	public int getIndex(int tag)
+	{
+		int index = 0;
+		for(Line line : lines)
+		{
+			if(line.getTag() == tag) return index;
+			else index++;
+		}
+		
+		return index;
 	}
 	
 	public boolean isFull()

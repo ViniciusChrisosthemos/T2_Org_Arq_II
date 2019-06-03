@@ -2,20 +2,20 @@ package Logic;
 
 public class Line
 {
+	private int tag;
 	private int data;
 	private int accesses;
-	private String tag;
 	private boolean validateBit;
 		
 	public Line()
 	{
 		data = 0;
 		accesses = 0;
-		tag = null;
+		tag = 0;
 		validateBit = false;
 	}
 	
-	public void setLine(String tag, int data)
+	public void setLine(int tag, int data)
 	{
 		this.tag = tag;
 		this.data = data;
@@ -27,12 +27,12 @@ public class Line
 		return accesses;
 	}
 	
-	public String getTag()
+	public int getTag()
 	{
 		return tag;
 	}
 	
-	public void setTag(String tag)
+	public void setTag(int tag)
 	{
 		this.tag = tag;
 	}
