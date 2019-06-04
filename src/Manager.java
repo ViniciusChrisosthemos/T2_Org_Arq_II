@@ -4,7 +4,6 @@ import java.util.ListIterator;
 
 import Logic.FileGenerator;
 import Logic.MemoryLevel;
-import Logic.Simulator;
 
 public class Manager {
 	private Simulator simulator;

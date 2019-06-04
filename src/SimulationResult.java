@@ -1,5 +1,4 @@
 import Logic.Cache;
-import Logic.Simulator;
 
 public class SimulationResult {
 	private float totalTime;

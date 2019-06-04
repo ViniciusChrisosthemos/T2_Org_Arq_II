@@ -92,14 +92,9 @@ public class Cache {
 		
 		Set set = associativeSets.get(addr.getSet());
 
-		//System.out.print(addr);
-
 		if(set.findAddress(addr.getTag(),hits+1))
 		{
 			hits++;
-
-			//System.out.println("HIT");
-			//System.out.println(associativeSets);
 			return new Step(addr, set.getIndex(addr.getTag()));
 		}
 		
@@ -113,9 +108,7 @@ public class Cache {
 		{
 			index = set.setLine(addr.getTag());
 		}
-
-		//System.out.println("MISS");
-		//System.out.println(associativeSets);
+		
 		miss++;
 		return new MissStep(addr, index, set.isFull());
 	}
@@ -260,17 +253,6 @@ public class Cache {
 		for(int i=0; i<associativeSetSize; i++)
 		{
 			associativeSets.add(new Set(ways));
-		}
-	}
-	
-
-	
-	public static void main(String[] args) {
-		Cache c = new Cache(128, 4, 16, 2);
-		System.out.println(c);
-		for(int i=0; i<31; i++)
-		{
-			c.findAddress(i);
 		}
 	}
 }

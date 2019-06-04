@@ -1,10 +1,16 @@
-package Logic;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.ListIterator;
+
+import Logic.Cache;
+import Logic.MemoryHierarchy;
+import Logic.MemoryLevel;
+import Logic.MissStep;
+import Logic.SimulationSteps;
+import Logic.Step;
 
 public class Simulator {
 	private Cache cache;
@@ -39,13 +45,10 @@ public class Simulator {
 				{
 					totalCost += memHierarchy.searchAddress();
 				}
-				//System.out.println(step);
+				Console.log(step);
 				totalCost++;
 			}
 		}
-		
-		simulationSteps.startSimulation();
-		simulationSteps.finishSimulation();
 	}
 	
 	private void resetValues() {

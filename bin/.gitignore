@@ -1,5 +1,2 @@
 /Logic/
-/SimulationSteps.class
-/Step.class
-/MissStep.class
-/g_interface/
+/Simulator.class
