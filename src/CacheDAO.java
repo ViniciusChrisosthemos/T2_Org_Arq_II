@@ -1,4 +1,4 @@
-import Logic.Cache;
+import logic.Cache;
 
 public class CacheDAO {
 	private int cacheSize;

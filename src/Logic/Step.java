@@ -1,12 +1,12 @@
-package Logic;
-import Logic.Address;
+package logic;
+
+import logic.Address;
 
 public class Step {
 	private Address addr;
 	private int index;
-	
-	public Step(Address addr, int index)
-	{
+
+	public Step(Address addr, int index) {
 		this.addr = addr;
 		this.index = index;
 	}
@@ -26,10 +26,9 @@ public class Step {
 	public void setIndex(int index) {
 		this.index = index;
 	}
-	
+
 	@Override
-	public String toString()
-	{
-		return "Endereço: "+addr+", Index = "+index+" -> HIT";
+	public String toString() {
+		return "EndereÃ§o: " + addr + ", Index = " + index + " -> HIT";
 	}
 }

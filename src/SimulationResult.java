@@ -1,4 +1,4 @@
-import Logic.Cache;
+import logic.Cache;
 
 public class SimulationResult {
 	private float totalTime;
@@ -8,16 +8,15 @@ public class SimulationResult {
 	private int cacheMiss;
 	private float cacheMissRate;
 	private int totalAddressesProcessed;
-	
-	public SimulationResult(Simulator simulator)
-	{
+
+	public SimulationResult(Simulator simulator) {
 		Cache cache = simulator.getCache();
 		totalTime = simulator.getTotalTime();
 		timeAverage = simulator.getTimeAverage();
 		cacheHits = cache.getHits();
 		cacheMiss = cache.getMiss();
-		cacheHitRate = ((float)cacheHits) / ((float) cacheMiss + cacheHits);
-		cacheMissRate = ((float)cacheMiss) / ((float) cacheMiss + cacheHits);
+		cacheHitRate = ((float) cacheHits) / ((float) cacheMiss + cacheHits);
+		cacheMissRate = ((float) cacheMiss) / ((float) cacheMiss + cacheHits);
 		totalAddressesProcessed = simulator.getAddressAmount();
 	}
 
@@ -55,6 +54,5 @@ public class SimulationResult {
 				+ ", cacheHitRate=" + cacheHitRate + ", cacheMiss=" + cacheMiss + ", cacheMissRate=" + cacheMissRate
 				+ ", totalAddressesProcessed=" + totalAddressesProcessed + "]";
 	}
-	
-	
+
 }

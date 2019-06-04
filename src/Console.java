@@ -47,9 +47,8 @@ public class Console {
 	public static void log(Object obj) {
 		Console.log(obj.toString());
 	}
-	
-	public static void setMainController(MainController controller)
-	{
+
+	public static void setMainController(MainController controller) {
 		mc = controller;
 	}
 }

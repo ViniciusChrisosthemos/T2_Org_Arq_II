@@ -5,12 +5,12 @@ import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
-import Logic.Cache;
-import Logic.MemoryHierarchy;
-import Logic.MemoryLevel;
-import Logic.MissStep;
-import Logic.SimulationSteps;
-import Logic.Step;
+import logic.Cache;
+import logic.MemoryHierarchy;
+import logic.MemoryLevel;
+import logic.MissStep;
+import logic.SimulationSteps;
+import logic.Step;
 
 public class Simulator {
 	private Cache cache;
@@ -18,31 +18,27 @@ public class Simulator {
 	private List<Integer> addresses;
 	private float totalCost;
 	private SimulationSteps simulationSteps;
-	
-	public Simulator()
-	{
+
+	public Simulator() {
 		cache = new Cache();
 		memHierarchy = new MemoryHierarchy();
 		addresses = new LinkedList<>();
 		totalCost = 0;
 	}
-	
+
 	/**
-	 * Come�a a simula��o, caso estaja configurada, gerando os resultados no console
+	 * Começa a simulação, caso estaja configurada, gerando os resultados no console
 	 * 
 	 */
-	public void startSimulation()
-	{
-		if(setup()) {
+	public void startSimulation() {
+		if (setup()) {
 			resetValues();
 			simulationSteps = new SimulationSteps(addresses.size(), cache.getAssociativeSets());
 			Step step;
-			for(Integer address : addresses)
-			{
+			for (Integer address : addresses) {
 				step = cache.findAddress(address);
 				simulationSteps.addStep(step);
-				if(step instanceof MissStep)
-				{
+				if (step instanceof MissStep) {
 					totalCost += memHierarchy.searchAddress();
 				}
 				Console.log(step);
@@ -50,101 +46,91 @@ public class Simulator {
 			}
 		}
 	}
-	
+
 	private void resetValues() {
 		cache.resetValues();
 		memHierarchy.resetValues();
 		totalCost = 0.0f;
 	}
 
-	public void setCacheConfig(int cacheSize, int blockAmount, int wordSize, int ways)
-	{
+	public void setCacheConfig(int cacheSize, int blockAmount, int wordSize, int ways) {
 		cache = new Cache(cacheSize, blockAmount, wordSize, ways);
 	}
-	
+
 	/**
-	 * Configura a simula��o, informando as caracteristicas da cache dos n�veis de mem�ria
+	 * Configura a simulação, informando as características da cache dos níveis de
+	 * memória
 	 * 
-	 * @param addrFile	nome do arquivo de endere�os a ser processado
-	 * @param cacheConfig	nome do arquivo de configura��o da cache
-	 * @param memConfig		mome do arquivo de configura��o dos n�veis de mem�ria
+	 * @param addrFile    nome do arquivo de endereços a ser processado
+	 * @param cacheConfig nome do arquivo de configuração da cache
+	 * @param memConfig   mome do arquivo de configuração dos níveis de memória
 	 */
-	public void configSimulation(String addrFile, String cacheConfig, String memConfig)
-	{
+	public void configSimulation(String addrFile, String cacheConfig, String memConfig) {
 		loadAddress(addrFile);
 		setCacheConfig(cacheConfig);
 		setMemoryHierarchy(memConfig);
 	}
-	
+
 	/**
-	 * Inicia uma lista de endere�os a partir de um arquivo
-	 * @param fileName	nome do arquivo com os endere�os
+	 * Inicia uma lista de endereços a partir de um arquivo
+	 * 
+	 * @param fileName nome do arquivo com os endereços
 	 */
-	public void loadAddress(String fileName)
-	{
+	public void loadAddress(String fileName) {
 		addresses = new LinkedList<>();
-		try(BufferedReader reader = new BufferedReader(new FileReader(fileName)))
-		{
-			while(reader.ready())
-			{
+		try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+			while (reader.ready()) {
 				addresses.add(Integer.parseInt(reader.readLine()));
 			}
-		}catch(IOException e)
-		{
+		} catch (IOException e) {
 			System.out.println(e);
 		}
 	}
-	
+
 	/**
 	 * Configura a cache com os dados do arquivo informado
 	 * 
-	 * @param fileConfigName	nome do arquivo contendo os dados da cache
+	 * @param configFileName nome do arquivo contendo os dados da cache
 	 */
-	public void setCacheConfig(String fileConfigName)
-	{
+	public void setCacheConfig(String configFileName) {
 		int cacheSize = 0;
 		int wordAmount = 0;
 		int wordSize = 0;
 		int ways = 0;
-		
-		try(BufferedReader reader = new BufferedReader(new FileReader(fileConfigName)))
-		{
+
+		try (BufferedReader reader = new BufferedReader(new FileReader(configFileName))) {
 			String[] tokens;
-			while(reader.ready())
-			{
+			while (reader.ready()) {
 				tokens = reader.readLine().replaceAll(" ", "").split(":");
-				switch(tokens[0])
-				{
-					case "Cache_size":
-						cacheSize = Integer.parseInt(tokens[1]);
-						break;
-					case "Word_amount":
-						wordAmount = Integer.parseInt(tokens[1]);
-						break;
-					case "Word_size":
-						wordSize = Integer.parseInt(tokens[1]);
-						break;
-					case "Ways":
-						ways = Integer.parseInt(tokens[1]);
-						break;
+				switch (tokens[0]) {
+				case "Cache_size":
+					cacheSize = Integer.parseInt(tokens[1]);
+					break;
+				case "Word_amount":
+					wordAmount = Integer.parseInt(tokens[1]);
+					break;
+				case "Word_size":
+					wordSize = Integer.parseInt(tokens[1]);
+					break;
+				case "Ways":
+					ways = Integer.parseInt(tokens[1]);
+					break;
 				}
 			}
-			
+
 			cache = new Cache(cacheSize, wordAmount, wordSize, ways);
-		}catch(IOException e)
-		{
+		} catch (IOException e) {
 			System.out.println(e);
 		}
 	}
-	
+
 	/**
-	 * Configura a hierarquia de mem�ria do simulado a partir do arquivo informado
+	 * Configura a hierarquia de memória do simulado a partir do arquivo informado
 	 * 
-	 * @param fileConfigName	nome do arquivo com os dados da hierarquia de mem�ria
+	 * @param configFileName nome do arquivo com os dados da hierarquia de memória
 	 */
-	public void setMemoryHierarchy(String fileConfigName)
-	{
-		memHierarchy = new MemoryHierarchy(fileConfigName);
+	public void setMemoryHierarchy(String configFileName) {
+		memHierarchy = new MemoryHierarchy(configFileName);
 	}
 
 	public Cache getCache() {
@@ -154,14 +140,12 @@ public class Simulator {
 	public void addMemoryLevel(String id, int cost, int prob) {
 		memHierarchy.addMemoryLevel(id, cost, prob);
 	}
-	
-	public List<MemoryLevel> getMemoryLevels()
-	{
+
+	public List<MemoryLevel> getMemoryLevels() {
 		return memHierarchy.getMemorys();
 	}
 
-	public boolean setup() 
-	{
+	public boolean setup() {
 		return cache.setup() & memHierarchy.setup() & !addresses.isEmpty();
 	}
 
@@ -188,7 +172,5 @@ public class Simulator {
 	public void setLRUAlgorithm() {
 		cache.setLeastRecentUsedAlgortithm();
 	}
-	
-	
-	
+
 }

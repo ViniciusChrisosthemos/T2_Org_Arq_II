@@ -1,75 +1,62 @@
-package Logic;
+package logic;
 
-public class Line
-{
+public class Line {
 	private int tag;
 	private int accesses;
 	private int lastAccess;
 	private boolean validateBit;
-		
-	public Line()
-	{
+
+	public Line() {
 		accesses = 0;
 		lastAccess = 0;
 		tag = 0;
 		validateBit = false;
 	}
-	
-	public void setLine(int tag)
-	{
+
+	public void setLine(int tag) {
 		this.tag = tag;
 		accesses = 0;
 		lastAccess = 0;
 	}
-	
-	public int getAccesses()
-	{
+
+	public int getAccesses() {
 		return accesses;
 	}
 
-	public int getLastAccess() 
-	{
+	public int getLastAccess() {
 		return lastAccess;
 	}
 
-	public int getTag()
-	{
+	public int getTag() {
 		return tag;
 	}
 
-
-	public void setLastAccess(int id)
-	{
+	public void setLastAccess(int id) {
 		this.lastAccess = id;
 	}
-	
-	public void setTag(int tag)
-	{
+
+	public void setTag(int tag) {
 		this.tag = tag;
 	}
 
-	public void addAccesses()
-	{
+	public void addAccesses() {
 		accesses++;
 	}
-	
-	public void setValidateBit(boolean value)
-	{
+
+	public void setValidateBit(boolean value) {
 		validateBit = value;
 	}
-	
-	public boolean isValid()
-	{
+
+	public boolean isValid() {
 		return validateBit;
 	}
 
 	public void setAccesses(int access) {
 		this.accesses = access;
 	}
-	
+
 	@Override
-	public String toString()
-	{
-		return "[Bit = "+validateBit+", Tag="+tag+", Accesses="+accesses+"]";
+	public String toString() {
+		return "[Bit = " + validateBit + ", Tag=" + tag + ", Accesses=" + accesses + "]";
 	}
 }

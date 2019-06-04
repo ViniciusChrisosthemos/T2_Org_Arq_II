@@ -1,4 +1,5 @@
-package Logic;
+package logic;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -10,78 +11,67 @@ public class MemoryHierarchy {
 	Random rand;
 	List<MemoryLevel> memoryLevels;
 	private boolean setup;
-	
-	public MemoryHierarchy()
-	{
+
+	public MemoryHierarchy() {
 		rand = new Random();
 		memoryLevels = new LinkedList<>();
 		setup = false;
 	}
-	
-	public MemoryHierarchy(String fileName)
-	{
+
+	public MemoryHierarchy(String fileName) {
 		this();
 		loadMemoryLevels(fileName);
 	}
-	
-	public void loadMemoryLevels(String fileName)
-	{
+
+	public void loadMemoryLevels(String fileName) {
 		String[] tokens;
-		try(BufferedReader reader = new BufferedReader(new FileReader(fileName))){
-			
-			while(reader.ready())
-			{
+		try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+
+			while (reader.ready()) {
 				tokens = reader.readLine().split(":");
-				
+
 				memoryLevels.add(new MemoryLevel(tokens[0], Integer.parseInt(tokens[1]), Integer.parseInt(tokens[2])));
 			}
-			
-		}catch(IOException e)
-		{
+
+		} catch (IOException e) {
 			System.out.println(e);
 		}
-		
+
 		setup = true;
 	}
-	
-	public int searchAddress()
-	{
+
+	public int searchAddress() {
 		int timeCost = 0;
 		int randProb;
-		for(MemoryLevel lvlMem : memoryLevels)
-		{
+		for (MemoryLevel lvlMem : memoryLevels) {
 			randProb = rand.nextInt(100);
 			timeCost += lvlMem.getMissPenalty();
-			
-			if(lvlMem.hasAddress(randProb))
-			{
+
+			if (lvlMem.hasAddress(randProb)) {
 				break;
 			}
 		}
-		
+
 		return timeCost;
 	}
-	
+
 	@Override
-	public String toString()
-	{
+	public String toString() {
 		StringBuilder string = new StringBuilder("Niveis de memoria:\n");
-		for(MemoryLevel memLvl : memoryLevels)
-		{
+		for (MemoryLevel memLvl : memoryLevels) {
 			string.append("   ").append(memLvl).append("\n");
 		}
-		
+
 		return string.toString();
 	}
 
 	public void addMemoryLevel(String id, int cost, int prob) {
 		memoryLevels.add(new MemoryLevel(id, cost, prob));
-		
+
 		setup = true;
 	}
-	
-	public List<MemoryLevel> getMemorys()
-	{
+
+	public List<MemoryLevel> getMemorys() {
 		return memoryLevels;
 	}
 
@@ -90,8 +80,7 @@ public class MemoryHierarchy {
 	}
 
 	public void resetValues() {
-		for(MemoryLevel memLvl : memoryLevels)
-		{
+		for (MemoryLevel memLvl : memoryLevels) {
 			memLvl.resetValues();
 		}
 	}
