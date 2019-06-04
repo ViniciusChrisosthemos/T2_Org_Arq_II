@@ -49,13 +49,13 @@ public class SimulationSteps {
 			if(missStep.isValidData())
 			{
 				Set set = associativeSets.get(missStep.getAddr().getSet());
-				set.replaceLine(missStep.getIndex(), missStep.getAddr().getTag(), missStep.getAddr().getBlock());
+				set.replaceLine(missStep.getIndex(), missStep.getAddr().getTag());
 				
 				associativeSets.set(missStep.getAddr().getSet(), set);
 			}else
 			{
 				Set set = associativeSets.get(missStep.getAddr().getSet());
-				set.setLine(missStep.getAddr().getTag(), missStep.getAddr().getBlock());
+				set.setLine(missStep.getAddr().getTag());
 				
 				associativeSets.set(missStep.getAddr().getSet(), set);
 			}

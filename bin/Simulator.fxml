@@ -63,10 +63,10 @@
                      <children>
                         <TextField fx:id="txtCacheSize" GridPane.columnIndex="1" />
                         <Label text="Tamanho da Cache:" />
-                        <Label text="Nº de blocos:" GridPane.rowIndex="1" />
+                        <Label text="Nº de palavras p/ bloco:" GridPane.rowIndex="1" />
                         <Label text="Tamanho da palavra:" GridPane.rowIndex="2" />
-                        <Label text="Nº de linhas por conjunto:" GridPane.rowIndex="3" />
-                        <TextField fx:id="txtBlockAmount" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Label text="Nº de linhas p/ conjunto:" GridPane.rowIndex="3" />
+                        <TextField fx:id="txtWordAmount" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                         <TextField fx:id="txtWordSize" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                         <TextField fx:id="txtWays" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                         <Label text="Nº de linhas:" GridPane.rowIndex="4" />

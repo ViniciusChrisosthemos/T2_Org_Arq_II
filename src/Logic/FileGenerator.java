@@ -38,7 +38,7 @@ public class FileGenerator {
 			int address = 0;
 			int addressAmout = 0;
 			
-			while(address <= endProg && addressAmout < maxEnd)
+			while(address != endProg && addressAmout < maxEnd)
 			{
 				writer.write(address + "\n");
 				jump = jumps.get(address);

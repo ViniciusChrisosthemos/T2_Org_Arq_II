@@ -8,7 +8,7 @@ public class Cache {
 	
 	//Informações da estrutura da Cache
 	private int cacheSize;
-	private int blockAmount;
+	private int wordAmount;
 	private int wordSize;
 	private int ways;
 	private int lines;
@@ -31,7 +31,7 @@ public class Cache {
 	public Cache()
 	{
 		cacheSize = 0;
-		blockAmount = 0;
+		wordAmount = 0;
 		wordSize = 0;
 		ways = 0;
 		lines = 0;
@@ -50,22 +50,21 @@ public class Cache {
 	 * Construtor da classe Cache
 	 * 
 	 * @param cacheSize		Tamanho da cache em BYTES
-	 * @param blockAmount	Quantidade de blocos em uma linha da cache
+	 * @param wordAmount	Quantidade de blocos em uma linha da cache
 	 * @param wordSize		Tamanho da palavra do bloco
 	 * @param ways			Número de linhas em um conjunto associativo
 	 */
-	public Cache(int cacheSize, int blockAmount, int wordSize, int ways)
+	public Cache(int cacheSize, int wordAmount, int wordSize, int ways)
 	{
 		this.cacheSize = cacheSize;
-		this.blockAmount = blockAmount;
+		this.wordAmount = wordAmount;
 		this.wordSize = wordSize;
 		this.ways = ways;
 		
-		lines = cacheSize/(blockAmount*wordSize);
+		lines = cacheSize/(wordAmount*wordSize);
 		associativeSetSize = lines/ways;
 		setAddrSize = (int) (Math.log(associativeSetSize) / Math.log(2));
-		blockAddrSize = (int) (Math.log(blockAmount) / Math.log(2));
-		blockAddrSize = (blockAddrSize == 0) ? 1:blockAddrSize;
+		blockAddrSize = (int) (Math.log(wordAmount) / Math.log(2));
 		tagAddrSize = Address.ADDRESSSIZE - setAddrSize - blockAddrSize;
 		
 		associativeSets = new ArrayList<>(associativeSetSize);
@@ -109,10 +108,10 @@ public class Cache {
 		if(set.isFull())
 		{
 			index = politicStrategy.getIndex(set);
-			set.replaceLine(index, addr.getTag(), addr.getBlock());
+			set.replaceLine(index, addr.getTag());
 		}else
 		{
-			index = set.setLine(addr.getTag(), addr.getBlock());
+			index = set.setLine(addr.getTag());
 		}
 
 		//System.out.println("MISS");
@@ -146,12 +145,12 @@ public class Cache {
 	}
 	
 	/**
-	 * getter blockAmount
-	 * @return blockAmount
+	 * getter wordAmount
+	 * @return wordAmount
 	 */
-	public int getBlockAmount()
+	public int getWordAmount()
 	{
-		return blockAmount;
+		return wordAmount;
 	}
 	
 	/**
@@ -246,7 +245,7 @@ public class Cache {
 	public String toString()
 	{
 		return "Configuracao da Cache:\n	Tamanho da cache = "+cacheSize+" Bytes\n"+
-			   "	Quantidade de blocos = "+blockAmount+" \n"+
+			   "	Quantidade de blocos = "+wordAmount+" \n"+
 			   "	Tamanho da palavra = "+wordSize+" Bytes\n"+
 			   "	Numero de vias = "+ways+"\n"+
 			   "	Quantidade de linhas = "+lines+"\n"+

@@ -3,22 +3,19 @@ package Logic;
 public class Line
 {
 	private int tag;
-	private int data;
 	private int accesses;
 	private boolean validateBit;
 		
 	public Line()
 	{
-		data = 0;
 		accesses = 0;
 		tag = 0;
 		validateBit = false;
 	}
 	
-	public void setLine(int tag, int data)
+	public void setLine(int tag)
 	{
 		this.tag = tag;
-		this.data = data;
 		accesses = 0;
 	}
 	
@@ -59,6 +56,6 @@ public class Line
 	@Override
 	public String toString()
 	{
-		return "[Bit = "+validateBit+", Tag="+tag+", Data="+data+", Accesses="+accesses+"]";
+		return "[Bit = "+validateBit+", Tag="+tag+", Accesses="+accesses+"]";
 	}
 }

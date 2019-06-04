@@ -29,7 +29,7 @@ public class MainController implements Initializable{
     private TextField txtCacheSize;
 
     @FXML
-    private TextField txtBlockAmount;
+    private TextField txtWordAmount;
 
     @FXML
     private TextField txtWordSize;
@@ -180,7 +180,7 @@ public class MainController implements Initializable{
     	try
     	{
     		int cacheSize = Integer.parseInt(txtCacheSize.getText());
-    		int blockAmount = Integer.parseInt(txtBlockAmount.getText());
+    		int blockAmount = Integer.parseInt(txtWordAmount.getText());
     		int wordSize = Integer.parseInt(txtWordSize.getText());
     		int ways = Integer.parseInt(txtWays.getText());
     		
@@ -219,13 +219,16 @@ public class MainController implements Initializable{
 	{
 		try
 		{
-			
 			String id = txtId.getText();
 			int cost = Integer.parseInt(txtCost.getText());
 			int prob = Integer.parseInt(txtProb.getText());
 			
 			manager.addMemoryLevel(id, cost, prob);
 			listMemHierarchy.setItems(FXCollections.observableArrayList(manager.getMemoryLevelsDAO()));
+			
+			txtId.setText("");
+			txtCost.setText("");
+			txtProb.setText("");
 			
 			if(manager.simulatorSetup())
 			{
@@ -318,7 +321,7 @@ public class MainController implements Initializable{
             	CacheDAO cacheDAO = manager.getCacheDAO();
         		
             	txtCacheSize.setText(String.valueOf(cacheDAO.getCacheSize()));
-            	txtBlockAmount.setText(String.valueOf(cacheDAO.getBlockAmount()));
+            	txtWordAmount.setText(String.valueOf(cacheDAO.getWordAmount()));
             	txtWordSize.setText(String.valueOf(cacheDAO.getWordSize()));
             	txtWays.setText(String.valueOf(cacheDAO.getWays()));
         		lblLines.setText(String.valueOf(cacheDAO.getLines()));

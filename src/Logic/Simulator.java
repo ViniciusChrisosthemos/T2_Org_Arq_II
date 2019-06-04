@@ -100,7 +100,7 @@ public class Simulator {
 	public void setCacheConfig(String fileConfigName)
 	{
 		int cacheSize = 0;
-		int blockAmount = 0;
+		int wordAmount = 0;
 		int wordSize = 0;
 		int ways = 0;
 		
@@ -115,8 +115,8 @@ public class Simulator {
 					case "Cache_size":
 						cacheSize = Integer.parseInt(tokens[1]);
 						break;
-					case "Block_amount":
-						blockAmount = Integer.parseInt(tokens[1]);
+					case "Word_amount":
+						wordAmount = Integer.parseInt(tokens[1]);
 						break;
 					case "Word_size":
 						wordSize = Integer.parseInt(tokens[1]);
@@ -127,7 +127,7 @@ public class Simulator {
 				}
 			}
 			
-			cache = new Cache(cacheSize, blockAmount, wordSize, ways);
+			cache = new Cache(cacheSize, wordAmount, wordSize, ways);
 		}catch(IOException e)
 		{
 			System.out.println(e);

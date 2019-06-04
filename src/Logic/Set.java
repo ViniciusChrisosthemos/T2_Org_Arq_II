@@ -21,14 +21,14 @@ public class Set {
 		}
 	}
 	
-	public int setLine(int tag, int value)
+	public int setLine(int tag)
 	{
 		int index = 0;
 		for(Line line : lines)
 		{
 			if(!line.isValid())
 			{
-				line.setLine(tag, value);
+				line.setLine(tag);
 				line.setValidateBit(true);
 				line.setAccesses(1);
 				break;
@@ -39,10 +39,10 @@ public class Set {
 		return index;
 	}
 	
-	public void replaceLine(int index, int tag, int value)
+	public void replaceLine(int index, int tag)
 	{
 		Line line = lines.get(index);
-		line.setLine(tag, value);
+		line.setLine(tag);
 		line.setAccesses(1);
 		lines.set(index, line);
 	}

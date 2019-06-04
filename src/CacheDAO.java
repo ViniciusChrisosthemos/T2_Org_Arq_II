@@ -2,7 +2,7 @@ import Logic.Cache;
 
 public class CacheDAO {
 	private int cacheSize;
-	private int blockAmount;
+	private int wordAmount;
 	private int wordSize;
 	private int ways;
 	private int lines;
@@ -17,7 +17,7 @@ public class CacheDAO {
 	public CacheDAO(Cache cache)
 	{
 		cacheSize = cache.getCacheSize();
-		blockAmount = cache.getBlockAmount();
+		wordAmount = cache.getWordAmount();
 		wordSize = cache.getWordSize();
 		ways = cache.getWays();
 		lines = cache.getLines();
@@ -36,12 +36,12 @@ public class CacheDAO {
 		this.cacheSize = cacheSize;
 	}
 
-	public int getBlockAmount() {
-		return blockAmount;
+	public int getWordAmount() {
+		return wordAmount;
 	}
 
 	public void setBlockAmount(int blockAmount) {
-		this.blockAmount = blockAmount;
+		this.wordAmount = blockAmount;
 	}
 
 	public int getWordSize() {
