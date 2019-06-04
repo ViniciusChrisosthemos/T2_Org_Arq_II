@@ -1,6 +1,4 @@
 package Logic;
-import java.util.List;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.Random;
 
@@ -20,7 +18,7 @@ interface PoliticStrategy {
 	{
 		return set -> set.getLines().indexOf(set.getLines()
 				.stream()
-				.max(Comparator.comparing(Line::getAccesses))
+				.min(Comparator.comparing(Line::getLastAccess))
 				.get());
 	}
 	

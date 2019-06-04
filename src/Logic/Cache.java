@@ -94,7 +94,7 @@ public class Cache {
 
 		//System.out.print(addr);
 
-		if(set.findAddress(addr.getTag()))
+		if(set.findAddress(addr.getTag(),hits+1))
 		{
 			hits++;
 

@@ -47,7 +47,7 @@ public class Set {
 		lines.set(index, line);
 	}
 	
-	public boolean findAddress(int tag)
+	public boolean findAddress(int tag, int accessId)
 	{
 		for(Line line : lines)
 		{
@@ -56,6 +56,7 @@ public class Set {
 				if(tag == line.getTag())
 				{
 					line.addAccesses();
+					line.setLastAccess(accessId);
 					return true;
 				}
 			}
