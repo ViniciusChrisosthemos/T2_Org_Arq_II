@@ -7,12 +7,12 @@ import java.util.Random;
 interface PoliticStrategy {
 	int getIndex(Set set);
 
-	static PoliticStrategy leastFrequentUsedAlgortithm() {
+	static PoliticStrategy leastFrequentUsedAlgorithm() {
 		return set -> set.getLines()
 				.indexOf(set.getLines().stream().min(Comparator.comparing(Line::getAccesses)).get());
 	}
 
-	static PoliticStrategy leastRecentUsedAlgortithm() {
+	static PoliticStrategy leastRecentUsedAlgorithm() {
 		return set -> set.getLines()
 				.indexOf(set.getLines().stream().min(Comparator.comparing(Line::getLastAccess)).get());
 	}

@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
+import view.Console;
 
 public class FileGenerator {
 	private Map<Integer, Jump> jumps;
@@ -24,10 +25,10 @@ public class FileGenerator {
 		return (instance != null) ? instance : (instance = new FileGenerator());
 	}
 
-	public void createAddressFile(String programFile, String addressFile) {
+	public void createAddressFile(File programFile, File addressFile) {
 		formatProgram(programFile);
 		try {
-			File file = new File(addressFile);
+			File file = addressFile;
 
 			if (!file.exists())
 				file.createNewFile();
@@ -59,12 +60,12 @@ public class FileGenerator {
 
 			writer.close();
 		} catch (IOException e) {
-			System.out.println(e);
+			Console.debug(e);
 		}
 	}
 
-	private void formatProgram(String addressFile) {
-		try (BufferedReader reader = new BufferedReader(new FileReader(new File(addressFile)))) {
+	private void formatProgram(File addressFile) {
+		try (BufferedReader reader = new BufferedReader(new FileReader(addressFile))) {
 			String[] tokens;
 			maxEnd = 0;
 			endProg = 0;
@@ -93,7 +94,7 @@ public class FileGenerator {
 			}
 
 		} catch (IOException e) {
-			System.out.println(e);
+			Console.debug(e);
 		}
 	}
 

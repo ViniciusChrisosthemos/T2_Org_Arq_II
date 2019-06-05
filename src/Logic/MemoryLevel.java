@@ -1,5 +1,7 @@
 package logic;
 
+import view.Console;
+
 public class MemoryLevel {
 	private String id;
 	private int hit;

@@ -2,10 +2,13 @@ package logic;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.File;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
+
+import view.Console;
 
 public class MemoryHierarchy {
 	Random rand;
@@ -18,14 +21,14 @@ public class MemoryHierarchy {
 		setup = false;
 	}
 
-	public MemoryHierarchy(String fileName) {
+	public MemoryHierarchy(File file) {
 		this();
-		loadMemoryLevels(fileName);
+		loadMemoryLevels(file);
 	}
 
-	public void loadMemoryLevels(String fileName) {
+	public void loadMemoryLevels(File file) {
 		String[] tokens;
-		try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+		try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
 
 			while (reader.ready()) {
 				tokens = reader.readLine().split(":");
@@ -34,7 +37,7 @@ public class MemoryHierarchy {
 			}
 
 		} catch (IOException e) {
-			System.out.println(e);
+			Console.debug(e);
 		}
 
 		setup = true;

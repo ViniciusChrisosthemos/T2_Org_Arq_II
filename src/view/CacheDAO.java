@@ -1,3 +1,5 @@
+package view;
+
 import logic.Cache;
 
 public class CacheDAO {
@@ -7,15 +9,14 @@ public class CacheDAO {
 	private int ways;
 	private int lines;
 	private int associativeSetSize;
-		
+
 	private int setAddrSize;
 	private int blockAddrSize;
 	private int tagAddrSize;
-	
+
 	private int addressSize;
 
-	public CacheDAO(Cache cache)
-	{
+	public CacheDAO(Cache cache) {
 		cacheSize = cache.getCacheSize();
 		wordAmount = cache.getWordAmount();
 		wordSize = cache.getWordSize();
@@ -27,7 +28,7 @@ public class CacheDAO {
 		tagAddrSize = cache.getTagAddrSize();
 		addressSize = cache.getAddressSize();
 	}
-	
+
 	public int getCacheSize() {
 		return cacheSize;
 	}

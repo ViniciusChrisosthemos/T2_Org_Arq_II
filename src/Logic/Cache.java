@@ -48,7 +48,7 @@ public class Cache {
 
 	/**
 	 * Construtor da classe Cache
-	 * 
+	 *
 	 * @param cacheSize  Tamanho da cache em BYTES
 	 * @param wordAmount Quantidade de blocos em uma linha da cache
 	 * @param wordSize   Tamanho da palavra do bloco
@@ -79,7 +79,7 @@ public class Cache {
 	/**
 	 * Tenta encontrar o endereço informado Se não for encontrado, a o conjunto é
 	 * atualizado
-	 * 
+	 *
 	 * @param address endereço a ser procurado
 	 * @return True se achar False caso contrário
 	 */
@@ -116,20 +116,20 @@ public class Cache {
 	/**
 	 * Define a política de substituição pelo menos frequente acessado
 	 */
-	public void setLeastFrequentUsedAlgortithm() {
-		politicStrategy = PoliticStrategy.leastFrequentUsedAlgortithm();
+	public void setLeastFrequentUsedAlgorithm() {
+		politicStrategy = PoliticStrategy.leastFrequentUsedAlgorithm();
 	}
 
 	/**
 	 * Define a política de substituição pelo mais recente acessado
 	 */
-	public void setLeastRecentUsedAlgortithm() {
-		politicStrategy = PoliticStrategy.leastRecentUsedAlgortithm();
+	public void setLeastRecentUsedAlgorithm() {
+		politicStrategy = PoliticStrategy.leastRecentUsedAlgorithm();
 	}
 
 	/**
 	 * getter wordAmount
-	 * 
+	 *
 	 * @return wordAmount
 	 */
 	public int getWordAmount() {
@@ -138,7 +138,7 @@ public class Cache {
 
 	/**
 	 * getter lines
-	 * 
+	 *
 	 * @return lines
 	 */
 	public int getTotalLines() {
@@ -147,7 +147,7 @@ public class Cache {
 
 	/**
 	 * getter ways
-	 * 
+	 *
 	 * @return ways
 	 */
 	public int getWays() {
@@ -165,7 +165,7 @@ public class Cache {
 
 	/**
 	 * getter miss
-	 * 
+	 *
 	 * @return miss
 	 */
 	public int getMiss() {
@@ -174,7 +174,7 @@ public class Cache {
 
 	/**
 	 * getter hits
-	 * 
+	 *
 	 * @return hits
 	 */
 	public int getHits() {

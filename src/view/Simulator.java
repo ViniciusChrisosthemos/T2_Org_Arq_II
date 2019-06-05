@@ -1,6 +1,8 @@
+package view;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.File;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
@@ -28,7 +30,7 @@ public class Simulator {
 
 	/**
 	 * Começa a simulação, caso estaja configurada, gerando os resultados no console
-	 * 
+	 *
 	 */
 	public void startSimulation() {
 		if (setup()) {
@@ -60,12 +62,12 @@ public class Simulator {
 	/**
 	 * Configura a simulação, informando as características da cache dos níveis de
 	 * memória
-	 * 
-	 * @param addrFile    nome do arquivo de endereços a ser processado
-	 * @param cacheConfig nome do arquivo de configuração da cache
-	 * @param memConfig   mome do arquivo de configuração dos níveis de memória
+	 *
+	 * @param addrFile    arquivo de endereços a ser processado
+	 * @param cacheConfig arquivo de configuração da cache
+	 * @param memConfig   arquivo de configuração dos níveis de memória
 	 */
-	public void configSimulation(String addrFile, String cacheConfig, String memConfig) {
+	public void configSimulation(File addrFile, File cacheConfig, File memConfig) {
 		loadAddress(addrFile);
 		setCacheConfig(cacheConfig);
 		setMemoryHierarchy(memConfig);
@@ -73,10 +75,10 @@ public class Simulator {
 
 	/**
 	 * Inicia uma lista de endereços a partir de um arquivo
-	 * 
-	 * @param fileName nome do arquivo com os endereços
+	 *
+	 * @param fileName arquivo com os endereços
 	 */
-	public void loadAddress(String fileName) {
+	public void loadAddress(File fileName) {
 		addresses = new LinkedList<>();
 		try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
 			while (reader.ready()) {
@@ -89,19 +91,21 @@ public class Simulator {
 
 	/**
 	 * Configura a cache com os dados do arquivo informado
-	 * 
-	 * @param configFileName nome do arquivo contendo os dados da cache
+	 *
+	 * @param configFile arquivo contendo os dados da cache
 	 */
-	public void setCacheConfig(String configFileName) {
+	public void setCacheConfig(File configFile) {
 		int cacheSize = 0;
 		int wordAmount = 0;
 		int wordSize = 0;
 		int ways = 0;
 
-		try (BufferedReader reader = new BufferedReader(new FileReader(configFileName))) {
+		try {
+			BufferedReader reader = new BufferedReader(new FileReader(configFile));
 			String[] tokens;
-			while (reader.ready()) {
-				tokens = reader.readLine().replaceAll(" ", "").split(":");
+			String line;
+			while ((line = reader.readLine()) != null) {
+				tokens = line.replaceAll(" ", "").split(":");
 				switch (tokens[0]) {
 				case "Cache_size":
 					cacheSize = Integer.parseInt(tokens[1]);
@@ -120,17 +124,17 @@ public class Simulator {
 
 			cache = new Cache(cacheSize, wordAmount, wordSize, ways);
 		} catch (IOException e) {
-			System.out.println(e);
+			Console.debug(e);
 		}
 	}
 
 	/**
 	 * Configura a hierarquia de memória do simulado a partir do arquivo informado
-	 * 
-	 * @param configFileName nome do arquivo com os dados da hierarquia de memória
+	 *
+	 * @param configFile arquivo com os dados da hierarquia de memória
 	 */
-	public void setMemoryHierarchy(String configFileName) {
-		memHierarchy = new MemoryHierarchy(configFileName);
+	public void setMemoryHierarchy(File configFile) {
+		memHierarchy = new MemoryHierarchy(configFile);
 	}
 
 	public Cache getCache() {
@@ -166,11 +170,11 @@ public class Simulator {
 	}
 
 	public void setLFUAlgorithm() {
-		cache.setLeastFrequentUsedAlgortithm();
+		cache.setLeastFrequentUsedAlgorithm();
 	}
 
 	public void setLRUAlgorithm() {
-		cache.setLeastRecentUsedAlgortithm();
+		cache.setLeastRecentUsedAlgorithm();
 	}
 
 }

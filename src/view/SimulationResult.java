@@ -1,3 +1,5 @@
+package view;
+
 import logic.Cache;
 
 public class SimulationResult {

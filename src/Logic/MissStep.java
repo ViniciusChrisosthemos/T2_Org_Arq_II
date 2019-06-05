@@ -18,6 +18,6 @@ public class MissStep extends Step {
 
 	@Override
 	public String toString() {
-		return "Endere�o: " + getAddr() + ", Index = " + getIndex() + " -> MISS, Bit = " + validData;
+		return "Endereço: " + getAddr() + ", Index = " + getIndex() + " -> MISS, Bit = " + validData;
 	}
 }

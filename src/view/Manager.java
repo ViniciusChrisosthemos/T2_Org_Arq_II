@@ -1,5 +1,8 @@
+package view;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.io.File;
 
 import logic.FileGenerator;
 import logic.MemoryLevel;
@@ -33,9 +36,10 @@ public class Manager {
 		return list;
 	}
 
-	public void setProgram(String progName) {
-		FileGenerator.getInstance().createAddressFile(progName, "enderecos_" + progName);
-		simulator.loadAddress("enderecos_" + progName);
+	public void setProgram(File progFile) {
+		File addressFile = new File("enderecos_" + progFile.getName());
+		FileGenerator.getInstance().createAddressFile(progFile, addressFile);
+		simulator.loadAddress(addressFile);
 	}
 
 	public boolean simulatorSetup() {
@@ -51,12 +55,12 @@ public class Manager {
 		return simulationResult;
 	}
 
-	public void loadCacheConfig(String fileConfigName) {
-		simulator.setCacheConfig(fileConfigName);
+	public void loadCacheConfig(File configFile) {
+		simulator.setCacheConfig(configFile);
 	}
 
-	public void loadMemConfig(String fileConfigName) {
-		simulator.setMemoryHierarchy(fileConfigName);
+	public void loadMemConfig(File configFile) {
+		simulator.setMemoryHierarchy(configFile);
 	}
 
 	public void setAlgorithm(String algorithm) {
@@ -73,8 +77,8 @@ public class Manager {
 		}
 	}
 
-	public void loadAddresses(String fileName) {
-		simulator.loadAddress(fileName);
+	public void loadAddresses(File file) {
+		simulator.loadAddress(file);
 	}
 
 	public int getSetAmount() {

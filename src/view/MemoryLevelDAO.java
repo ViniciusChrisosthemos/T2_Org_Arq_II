@@ -1,3 +1,5 @@
+package view;
+
 import logic.MemoryLevel;
 
 public class MemoryLevelDAO {

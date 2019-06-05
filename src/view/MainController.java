@@ -1,3 +1,5 @@
+package view;
+
 import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -153,7 +155,7 @@ public class MainController implements Initializable {
 		colId.setCellValueFactory(new PropertyValueFactory<>("id"));
 		colHits.setCellValueFactory(new PropertyValueFactory<>("hits"));
 		colHitRate.setCellValueFactory(new PropertyValueFactory<>("hitRate"));
-		colMiss.setCellValueFactory(new PropertyValueFactory<>("miss"));
+		colMiss.setCellValueFactory(new PropertyValueFactory<>("misses"));
 		colMissRate.setCellValueFactory(new PropertyValueFactory<>("missRate"));
 
 		setEventHandlers();
@@ -203,14 +205,17 @@ public class MainController implements Initializable {
 		}
 	}
 
-	// TODO: Implementar verificação se a memoria a ser inserida possui atributos maiores
-	// que o anterior
 	private void addMemory() {
 		try {
 			String id = txtId.getText();
 			int cost = Integer.parseInt(txtCost.getText());
 			int prob = Integer.parseInt(txtProb.getText());
-
+			for (MemoryLevelDAO mem : manager.getMemoryLevelsDAO()) {
+				if (id.equals(mem.getId())) {
+					Console.log("Já existe um nível com este id!");
+					return;
+				}
+			}
 			manager.addMemoryLevel(id, cost, prob);
 			listMemHierarchy.setItems(FXCollections.observableArrayList(manager.getMemoryLevelsDAO()));
 
@@ -222,7 +227,9 @@ public class MainController implements Initializable {
 				lblSimulationState.setTextFill(Color.GREEN);
 				lblSimulationState.setText("Simulação configurada");
 			}
-		} catch (NumberFormatException ex) {
+		} catch (
+
+		NumberFormatException ex) {
 			Console.log("Algum campo está preenchido incorretamente.");
 		} catch (RuntimeException ex) {
 			ex.printStackTrace();
@@ -261,7 +268,7 @@ public class MainController implements Initializable {
 		try {
 			File file = showFileDialog();
 
-			manager.setProgram(file.getName());
+			manager.setProgram(file);
 			Console.log("arquivo de endereços criado com sucesso!");
 
 			lblAddressFileName.setTextFill(Color.GREEN);
@@ -280,8 +287,7 @@ public class MainController implements Initializable {
 	private void loadCacheConfigFile() {
 		try {
 			File file = showFileDialog();
-
-			manager.loadCacheConfig(file.getName());
+			manager.loadCacheConfig(file);
 			Console.log("Cache configurada com sucesso!");
 
 			lblCacheConfigFile.setTextFill(Color.GREEN);
@@ -315,7 +321,7 @@ public class MainController implements Initializable {
 		try {
 			File file = showFileDialog();
 
-			manager.loadMemConfig(file.getName());
+			manager.loadMemConfig(file);
 			Console.log("Hierarquia de memória configurada com sucesso!");
 			lblMemConfigFile.setTextFill(Color.GREEN);
 			lblMemConfigFile.setText(file.getName());
@@ -343,7 +349,7 @@ public class MainController implements Initializable {
 	private void loadAddresses() {
 		try {
 			File file = showFileDialog();
-			manager.loadAddresses(file.getName());
+			manager.loadAddresses(file);
 
 			Console.log("Endereços carregados com sucesso!");
 
