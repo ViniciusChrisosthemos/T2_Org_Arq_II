@@ -71,7 +71,7 @@ public class MemoryHierarchy {
 		setup = true;
 	}
 
-	public List<MemoryLevel> getMemorys() {
+	public List<MemoryLevel> getMemories() {
 		return memoryLevels;
 	}
 

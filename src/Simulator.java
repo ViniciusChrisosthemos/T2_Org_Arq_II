@@ -142,7 +142,7 @@ public class Simulator {
 	}
 
 	public List<MemoryLevel> getMemoryLevels() {
-		return memHierarchy.getMemorys();
+		return memHierarchy.getMemories();
 	}
 
 	public boolean setup() {

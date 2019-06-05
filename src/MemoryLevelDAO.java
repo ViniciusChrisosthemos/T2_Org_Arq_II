@@ -5,14 +5,14 @@ public class MemoryLevelDAO {
 	private int missPenalty;
 	private int prob;
 	private int hits;
-	private int miss;
+	private int misses;
 
 	public MemoryLevelDAO(MemoryLevel memLevel) {
 		id = memLevel.getId();
 		missPenalty = memLevel.getMissPenalty();
 		prob = memLevel.getProb();
 		hits = memLevel.getHits();
-		miss = memLevel.getMiss();
+		misses = memLevel.getMisses();
 	}
 
 	public String getId() {
@@ -31,29 +31,29 @@ public class MemoryLevelDAO {
 		return hits;
 	}
 
-	public int getMiss() {
-		return miss;
+	public int getMisses() {
+		return misses;
 	}
 
 	public float getHitRate() {
-		return (((float) hits) / ((float) hits + miss)) * 100.f;
+		return (((float) hits) / ((float) hits + misses)) * 100.f;
 	}
 
 	public float getMissRate() {
-		return (((float) miss) / ((float) hits + miss)) * 100.f;
+		return (((float) misses) / ((float) hits + misses)) * 100.f;
 	}
 
 	@Override
 	public String toString() {
-		if (miss != 0 | hits != 0) {
-			float querys = hits + miss;
+		if (misses != 0 | hits != 0) {
+			float querys = hits + misses;
 			float hitRate = (hits / querys) * 100.0f;
-			float missRate = (miss / querys) * 100.0f;
-			return id + " = [hit=" + hits + ", hit-rate=" + String.format("%.2f", hitRate) + "%, miss=" + miss
+			float missRate = (misses / querys) * 100.0f;
+			return id + " = [hit=" + hits + ", hit-rate=" + String.format("%.2f", hitRate) + "%, misses=" + misses
 					+ ", miss-rate=" + String.format("%.2f", missRate) + "%, missPenalty=" + missPenalty + ", prob="
 					+ prob + "]";
 		}
 
-		return id + " = [hit=" + hits + ", miss=" + miss + ", missPenalty=" + missPenalty + ", prob=" + prob + "]";
+		return id + " = [hit=" + hits + ", misses=" + misses + ", missPenalty=" + missPenalty + ", prob=" + prob + "]";
 	}
 }

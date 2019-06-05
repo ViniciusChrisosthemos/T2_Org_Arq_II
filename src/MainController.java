@@ -203,7 +203,7 @@ public class MainController implements Initializable {
 		}
 	}
 
-	// Implementar verificação se a memoria a ser inserida possui atributos maiores
+	// TODO: Implementar verificação se a memoria a ser inserida possui atributos maiores
 	// que o anterior
 	private void addMemory() {
 		try {

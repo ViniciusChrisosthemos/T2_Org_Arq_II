@@ -37,7 +37,7 @@ public class MemoryLevel {
 		return hit;
 	}
 
-	public int getMiss() {
+	public int getMisses() {
 		return miss;
 	}
 

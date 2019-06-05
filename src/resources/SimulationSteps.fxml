@@ -42,11 +42,11 @@
       <Label text="Formato do endereço:" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="5" />
       <Label text="Tag:" GridPane.columnIndex="3" GridPane.rowIndex="6" />
       <Label text="Conjunto:" GridPane.columnIndex="3" GridPane.rowIndex="7" />
-      <Label text="Block:" GridPane.columnIndex="3" GridPane.rowIndex="8" />
+      <Label text="Bloco:" GridPane.columnIndex="3" GridPane.rowIndex="8" />
       <Label text="---" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="6" />
       <Label text="---" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="7" />
       <Label text="---" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="8" />
-      <Label text="Endereço em binario" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="4" />
+      <Label text="Endereço em binário" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="4" />
       <Label text="---" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
       <Label text="Algoritmo de substituição:" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="9" />
       <Label text="---" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="9" />

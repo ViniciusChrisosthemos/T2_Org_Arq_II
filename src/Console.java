@@ -1,5 +1,5 @@
-import java.util.Calendar;
-import java.util.TimeZone;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Console {
 	private static String console = "";
@@ -21,11 +21,9 @@ public class Console {
 	}
 
 	public static String formattedDate() {
-		Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("America/Sao_Paulo"));
-		String date = cal.get(Calendar.DAY_OF_MONTH) + "/" + (cal.get(Calendar.MONTH) + 1) + "/"
-				+ cal.get(Calendar.YEAR) + " " + cal.get(Calendar.HOUR_OF_DAY) + ":" + cal.get(Calendar.MINUTE) + ":"
-				+ cal.get(Calendar.SECOND);
-		return date;
+		LocalDateTime ldt = LocalDateTime.now();
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+		return dtf.format(ldt);
 	}
 
 	public static void setDebug(boolean debug) {

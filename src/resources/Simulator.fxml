@@ -106,7 +106,7 @@
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="15.0">
                      <children>
                         <Button fx:id="btnConfigCache" mnemonicParsing="false" prefHeight="25.0" prefWidth="139.0" text="Confirmar configuração" />
-                        <Label text="State: " />
+                        <Label text="Estado: " />
                         <Label fx:id="lblCacheStatus" text="Não configurada" />
                      </children>
                      <padding>
@@ -282,7 +282,7 @@
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <Label text="Miss:" GridPane.rowIndex="5">
+                  <Label text="Misses:" GridPane.rowIndex="5">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -351,7 +351,7 @@
                         <TableColumn fx:id="colId" prefWidth="65.0" text="ID" />
                         <TableColumn fx:id="colHits" prefWidth="71.0" text="Hits" />
                         <TableColumn fx:id="colHitRate" text="Hit-Rate" />
-                        <TableColumn fx:id="colMiss" prefWidth="75.0" text="Miss" />
+                        <TableColumn fx:id="colMiss" prefWidth="75.0" text="Misses" />
                         <TableColumn fx:id="colMissRate" minWidth="0.0" prefWidth="84.0" text="Miss-Rate" />
                      </columns>
                   </TableView>
