@@ -65,7 +65,7 @@ public class Manager {
 
 	public void setAlgorithm(String algorithm) {
 		switch (algorithm) {
-		case "Rand�mico":
+		case "Randomico":
 			simulator.setRandomAlgorithm();
 			break;
 		case "Least Frequent Used (LFU)":

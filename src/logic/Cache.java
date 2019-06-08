@@ -37,7 +37,6 @@ public class Cache {
 		lines = 0;
 		associativeSetSize = 0;
 		associativeSets = new LinkedList<Set>();
-		politicStrategy = PoliticStrategy.randomAlgorithm();
 		setAddrSize = 0;
 		blockAddrSize = 0;
 		tagAddrSize = 0;

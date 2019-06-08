@@ -149,7 +149,7 @@ public class MainController implements Initializable {
 		manager = new Manager();
 		Console.setMainController(this);
 		btnSetAlgorithm.setItems(
-				FXCollections.observableArrayList("Randômico", "Least Frequent Used (LFU)", "Least Recent Used (LRU)"));
+				FXCollections.observableArrayList("Randomico", "Least Frequent Used (LFU)", "Least Recent Used (LRU)"));
 		btnSetAlgorithm.getSelectionModel().selectFirst();
 
 		colId.setCellValueFactory(new PropertyValueFactory<>("id"));
