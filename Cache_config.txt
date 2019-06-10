@@ -1,0 +1,4 @@
+Cache_size: 128
+Word_amount: 2
+Word_size: 8
+Ways: 4

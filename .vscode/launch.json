@@ -1,0 +1,11 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - StartApplication",
+            "request": "launch",
+            "mainClass": "StartApplication",
+            "projectName": "T2_ORG_ARQ_II"
+        }
+    ]
+}
