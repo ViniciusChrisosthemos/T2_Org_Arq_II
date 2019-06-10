@@ -105,7 +105,11 @@
                   </VBox>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="15.0">
                      <children>
+<<<<<<< HEAD
                         <Button fx:id="btnConfigCache" mnemonicParsing="false" prefHeight="25.0" prefWidth="145.0" text="Confirmar configuração" />
+=======
+                        <Button fx:id="btnConfigCache" mnemonicParsing="false" prefHeight="25.0" prefWidth="139.0" text="Confirmar configuração" />
+>>>>>>> 572b8556a0cf849cd53a5291a6c84b85983fc3e2
                         <Label text="Estado: " />
                         <Label fx:id="lblCacheStatus" text="Não configurada" />
                      </children>
