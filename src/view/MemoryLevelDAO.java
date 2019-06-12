@@ -56,6 +56,6 @@ public class MemoryLevelDAO {
 					+ prob + "]";
 		}
 
-		return id + " = [hit=" + hits + ", misses=" + misses + ", missPenalty=" + missPenalty + ", prob=" + prob + "]";
+		return id + " = [custo=" + missPenalty + ", prob=" + prob + "]";
 	}
 }

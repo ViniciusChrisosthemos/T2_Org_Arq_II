@@ -3,6 +3,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import view.Console;
 import view.MainController;
 
 public class StartApplication extends Application {
@@ -26,6 +27,9 @@ public class StartApplication extends Application {
 
 	public static void main(String[] args) {
 		launch();
+		if (args.length > 0 && args[0].equalsIgnoreCase("debug"))
+			Console.setDebug(true);
+
 	}
 
 }

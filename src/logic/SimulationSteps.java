@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.ListIterator;
 
 import logic.Set;
+import view.Console;
 
 public class SimulationSteps {
 	private List<Step> steps;
@@ -52,7 +53,7 @@ public class SimulationSteps {
 			}
 		}
 
-		System.out.println(step);
+		Console.debug(step);
 	}
 
 	public String getAssociativeSetsStatus() {

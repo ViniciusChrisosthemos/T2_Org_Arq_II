@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import view.Console;
+
 public class Cache {
 	// Constantes utilizadas
 
@@ -60,7 +62,7 @@ public class Cache {
 		setAddrSize = (int) (Math.log(associativeSetSize) / Math.log(2));
 		blockAddrSize = (int) (Math.log(wordAmount) / Math.log(2));
 		tagAddrSize = Address.ADDRESSSIZE - setAddrSize - blockAddrSize;
-		if (!validateCache()) 
+		if (!validateCache())
 			return;
 		associativeSets = new ArrayList<>(associativeSetSize);
 		for (int i = 0; i < associativeSetSize; i++) {
@@ -159,7 +161,7 @@ public class Cache {
 	 */
 	public void printSets() {
 		for (Set set : associativeSets) {
-			System.out.println(set);
+			Console.debug(set);
 		}
 	}
 

@@ -86,7 +86,7 @@ public class Simulator {
 				addresses.add(Integer.parseInt(reader.readLine()));
 			}
 		} catch (IOException e) {
-			System.out.println(e);
+			Console.debug(e);
 		}
 	}
 
@@ -101,7 +101,7 @@ public class Simulator {
 		int wordSize = 0;
 		int ways = 0;
 
-		try (BufferedReader reader = new BufferedReader(new FileReader(configFile))){			
+		try (BufferedReader reader = new BufferedReader(new FileReader(configFile))) {
 			String[] tokens;
 			String line;
 			while ((line = reader.readLine()) != null) {
